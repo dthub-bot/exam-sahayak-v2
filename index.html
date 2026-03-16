@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Sahayak</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #1976d2;
+            --light: #e3f2fd;
+            --dark: #0d47a1;
+            --success: #43a047;
+            --border: #ddd;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .lang-selector {
+            display: flex;
+            gap: 12px;
+        }
+
+        .lang-btn {
+            padding: 6px 16px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .step-panel {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .step-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark);
+        }
+
+        .chip-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 12px 0 20px;
+        }
+
+        .chip {
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            background: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chip.selected {
+            background: var(--light);
+            border-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .results-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin: 20px 0 15px;
+            color: var(--dark);
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .results-table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1600px;
+        }
+
+        th {
+            background: var(--light);
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            position: sticky;
+            top: 0;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+            font-size: 13px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .exam-name {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .apply-btn, .syllabus-btn {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--success);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        .apply-btn:hover, .syllabus-btn:hover {
+            background: #2e7d32;
+        }
+
+        .fee-cell {
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo" id="page-title">Exam Sahayak</div>
+            <div class="lang-selector">
+                <div class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</div>
+                <div class="lang-btn" data-lang="hi" onclick="setLang('hi')">हिंदी</div>
+                <div class="lang-btn" data-lang="mr" onclick="setLang('mr')">मराठी</div>
+            </div>
+        </header>
+
+        <!-- Step 1: Name -->
+        <div id="step-name" class="step-panel">
+            <h2 class="step-title" id="name-title">Welcome! Please enter your name</h2>
+            <p id="name-desc" style="text-align:center; margin-bottom:24px;">We’ll use this only for personalization (not stored).</p>
+            <input type="text" id="studentName" class="input-field" placeholder="e.g., Anita" />
+            <div style="text-align:center;">
+                <button class="btn btn-primary" onclick="nextToFilters()">Continue</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Filters -->
+        <div id="step-filters" class="step-panel hidden">
+            <button class="back-btn" onclick="goToStep('name')">
+                ← <span id="back-to-name">Back to Name</span>
+            </button>
+            <h2 class="step-title" id="filter-title">Select Your Details</h2>
+
+            <label id="edu-label">Education Level</label>
+            <div class="chip-group" id="grp-edu"></div>
+
+            <label id="stream-label">Stream / Field</label>
+            <div class="chip-group" id="grp-stream"></div>
+
+            <label id="cat-label">Category</label>
+            <div class="chip-group" id="grp-cat"></div>
+
+            <div style="text-align:center;">
+                <button class="btn btn-primary" onclick="showResults()">Find & Compare Exams</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Results -->
+        <div id="step-results" class="step-panel hidden">
+            <button class="back-btn" onclick="goToStep('filters')">
+                ← <span id="back-to-filters">Back to Filters</span>
+            </button>
+            <h2 class="step-title" id="results-title">Recommended Exams by Category</h2>
+            <div id="results-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Convert Arabic numerals to Devanagari
+        function toDevanagari(str, lang) {
+            if (!str || lang === 'en') return str;
+            const map = { '0': '०', '1': '१', '2': '२', '3': '३', '4': '४', '5': '५', '6': '६', '7': '७', '8': '८', '9': '९' };
+            return str.toString().replace(/\d/g, d => map[d] || d);
+        }
+
+        function parseFee(feeStr) {
+            try {
+                if (!feeStr) return null;
+                if (feeStr.includes('/')) {
+                    const parts = feeStr.split('/').map(p => p.trim().replace(/[^0-9]/g, ''));
+                    if (parts.length >= 6) {
+                        return {
+                            general: parts[0] || '—',
+                            obc: parts[1] || '—',
+                            ews: parts[2] || '—',
+                            sc: parts[3] || '—',
+                            st: parts[4] || '—',
+                            pwd: parts[5] || '—'
+                        };
+                    }
+                }
+                return null;
+            } catch (e) {
+                console.warn("Fee parsing failed:", feeStr);
+                return null;
+            }
+        }
+
+        function formatFeeCell(feeObj, lang) {
+            if (!feeObj) return "As per official notice";
+            const labels = translations[lang].fee_labels;
+            const dev = (s) => toDevanagari(s, lang);
+            return `
+                <div class="fee-cell">
+                    ${labels[0]}: ₹${dev(feeObj.general)}<br>
+                    ${labels[1]}: ₹${dev(feeObj.obc)}<br>
+                    ${labels[2]}: ₹${dev(feeObj.ews)}<br>
+                    ${labels[3]}: ₹${dev(feeObj.sc)}<br>
+                    ${labels[4]}: ₹${dev(feeObj.st)}<br>
+                    ${labels[5]}: ₹${dev(feeObj.pwd)}
+                </div>
+            `;
+        }
+
+        const translations = {
+            en: {
+                title: "Exam Sahayak",
+                name_title: "Welcome! Please enter your name",
+                name_desc: "We’ll use this only for personalization (not stored).",
+                filter_title: "Select Your Details",
+                edu_label: "Education Level",
+                stream_label: "Stream / Field",
+                cat_label: "Category",
+                results_title: "Recommended Exams by Category",
+                back_to_name: "Back to Name",
+                back_to_filters: "Back to Filters",
+                apply_now: "Apply Now",
+                syllabus_label: "View Syllabus",
+                continue_btn: "Continue",
+                find_exams_btn: "Find & Compare Exams",
+                placeholder_name: "e.g., Anita",
+                levels: { "12th": "12th", "grad": "Graduation", "post_grad": "Post Graduation" },
+                streams: {
+                    "any": "Any",
+                    "ug": "Undergraduate (UG) Exams",
+                    "management": "Management & Business School",
+                    "upsc": "UPSC Exams",
+                    "banking": "Banking Exams",
+                    "ssc": "Staff Selection Commission",
+                    "regulatory": "Regulatory Body Exams",
+                    "state_psc": "State PSC Exams",
+                    "professional": "Professional Courses (CA/CS/CMA)"
+                },
+                categories: { "general": "General", "obc": "OBC", "sc": "SC", "st": "ST", "ews": "EWS", "pwd": "PwD" },
+                fee_labels: ["General", "OBC", "EWS", "SC", "ST", "PwD"],
+                table_headers: [
+                    "Exam", "Eligibility", "Min Marks", "Age Limit", "Conducted By",
+                    "Level", "Difficulty", "Fee (₹)", "Career Path", "Mode",
+                    "Exam Date", "Syllabus", "Apply"
+                ]
+            },
+            hi: {
+                title: "परीक्षा सहायक",
+                name_title: "स्वागत है! कृपया अपना नाम दर्ज करें",
+                name_desc: "हम इसे केवल व्यक्तिगतकरण के लिए उपयोग करेंगे।",
+                filter_title: "अपना विवरण चुनें",
+                edu_label: "शैक्षणिक स्तर",
+                stream_label: "स्ट्रीम / क्षेत्र",
+                cat_label: "श्रेणी",
+                results_title: "श्रेणीवार अनुशंसित परीक्षाएँ",
+                back_to_name: "नाम पर वापस",
+                back_to_filters: "फ़िल्टर पर वापस",
+                apply_now: "अभी आवेदन करें",
+                syllabus_label: "पाठ्यक्रम देखें",
+                continue_btn: "जारी रखें",
+                find_exams_btn: "परीक्षाएँ खोजें और तुलना करें",
+                placeholder_name: "उदा., अनिता",
+                levels: { "12th": "१२वीं", "grad": "स्नातक", "post_grad": "स्नातकोत्तर" },
+                streams: {
+                    "any": "कोई भी",
+                    "ug": "स्नातक (यूजी) परीक्षाएँ",
+                    "management": "प्रबंधन एवं व्यवसाय विद्यालय",
+                    "upsc": "यूपीएससी परीक्षाएँ",
+                    "banking": "बैंकिंग परीक्षाएँ",
+                    "ssc": "कर्मचारी चयन आयोग",
+                    "regulatory": "नियामक निकाय परीक्षाएँ",
+                    "state_psc": "राज्य लोक सेवा आयोग परीक्षाएँ",
+                    "professional": "पेशेवर पाठ्यक्रम (सीए/सीएस/सीएमए)"
+                },
+                categories: { "general": "सामान्य", "obc": "ओबीसी", "sc": "अनुसूचित जाति", "st": "अनुसूचित जनजाति", "ews": "ईडब्ल्यूएस", "pwd": "पीडब्ल्यूडी" },
+                fee_labels: ["सामान्य", "ओबीसी", "ईडब्ल्यूएस", "अनुसूचित जाति", "अनुसूचित जनजाति", "पीडब्ल्यूडी"],
+                table_headers: [
+                    "परीक्षा", "पात्रता", "न्यूनतम अंक", "आयु सीमा", "आयोजक संस्था",
+                    "स्तर", "कठिनाई", "शुल्क (₹)", "करियर पथ", "मोड",
+                    "परीक्षा तिथि", "पाठ्यक्रम", "आवेदन"
+                ]
+            },
+            mr: {
+                title: "परीक्षा सहाय्यक",
+                name_title: "स्वागत आहे! कृपया तुमचे नाव टाका",
+                name_desc: "आम्ही हे फक्त वैयक्तिकरणासाठी वापरू.",
+                filter_title: "तुमचा तपशील निवडा",
+                edu_label: "शैक्षणिक पातळी",
+                stream_label: "प्रवाह / क्षेत्र",
+                cat_label: "श्रेणी",
+                results_title: "श्रेणीनुसार शिफारस केलेल्या परीक्षा",
+                back_to_name: "नावावर परत",
+                back_to_filters: "फिल्टरवर परत",
+                apply_now: "आता अर्ज करा",
+                syllabus_label: "अभ्यासक्रम पहा",
+                continue_btn: "पुढे जा",
+                find_exams_btn: "परीक्षा शोधा आणि तुलना करा",
+                placeholder_name: "उदा., अनिता",
+                levels: { "12th": "१२वी", "grad": "पदवी", "post_grad": "पदव्युत्तर" },
+                streams: {
+                    "any": "कोणताही",
+                    "ug": "पदवीपूर्व (यूजी) परीक्षा",
+                    "management": "व्यवस्थापन आणि व्यवसाय शाळा",
+                    "upsc": "यूपीएससी परीक्षा",
+                    "banking": "बँकिंग परीक्षा",
+                    "ssc": "कर्मचारी निवड आयोग",
+                    "regulatory": "नियामक संस्था परीक्षा",
+                    "state_psc": "राज्य लोकसेवा आयोग परीक्षा",
+                    "professional": "व्यावसायिक अभ्यासक्रम (सीए/सीएस/सीएमए)"
+                },
+                categories: { "general": "सामान्य", "obc": "ओबीसी", "sc": "अनुसूचित जाती", "st": "अनुसूचित जमाती", "ews": "ईडब्ल्यूएस", "pwd": "पीडब्ल्यूडी" },
+                fee_labels: ["सामान्य", "ओबीसी", "ईडब्ल्यूएस", "अनुसूचित जाती", "अनुसूचित जमाती", "पीडब्ल्यूडी"],
+                table_headers: [
+                    "परीक्षा", "पात्रता", "किमान गुण", "वय मर्यादा", "आयोजक संस्था",
+                    "स्तर", "अडचण", "शुल्क (₹)", "करिअर मार्ग", "पद्धत",
+                    "परीक्षा तारीख", "अभ्यासक्रम", "अर्ज करा"
+                ]
+            }
+        };
+
+        let currentLang = 'en';
+        let selectedFilters = {
+            level: '12th',
+            stream: 'any',
+            cat: 'obc'
+        };
+
+        // EXAM DATA FROM YOUR DATASET - FULLY UPDATED
+        const examGroups = {
+            ug: [
+                {
+                    name: { en: "JEE Main", hi: "जेईई मेन", mr: "जेईई मेन" },
+                    minEdu: { en: "12th (PCM)", hi: "12वीं (भौतिकी, रसायन, गणित)", mr: "12वी (भौतिकशास्त्र, रसायनशास्त्र, गणित)" },
+                    minMarks: { en: "75%", hi: "75%", mr: "75%" },
+                    age: { en: "NIL", hi: "कोई सीमा नहीं", mr: "मर्यादा नाही" },
+                    body: { en: "NTA", hi: "राष्ट्रीय परीक्षण एजेंसी", mr: "राष्ट्रीय चाचणी एजन्सी" },
+                    level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+                    diff: { en: "High", hi: "उच्च", mr: "उच्च" },
+                    fee: "1000/1000/1000/500/500/500",
+                    career: { en: "B.Tech / B.E", hi: "बी.टेक / बी.ई", mr: "बी.टेक / बी.ई" },
+                    link: "https://jeemain.nta.ac.in/Registration/",
+                    mode: { en: "Computer", hi: "कंप्यूटर", mr: "संगणक" },
+                    examDate: "Last week of January (Session 1) / First week of April (Session 2)",
+                    syllabus: "https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2024/10/2024102841.pdf"
+                },
+                {
+                    name: { en: "NEET UG", hi: "नीट यूजी", mr: "नीट यूजी" },
+                    minEdu: { en: "12th (PCB)", hi: "12वीं (भौतिकी, रसायन, जीव विज्ञान)", mr: "12वी (भौतिकशास्त्र, रसायनशास्त्र, जीवशास्त्र)" },
+                    minMarks: { en: "50% Gen, 40% Res", hi: "सामान्य 50%, आरक्षित 40%", mr: "सामान्य 50%, आरक्षित 40%" },
+                    age: { en: "17–25", hi: "17–25", mr: "17–25" },
+                    body: { en: "NTA", hi: "राष्ट्रीय परीक्षण एजेंसी", mr: "राष्ट्रीय चाचणी एजन्सी" },
+                    level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+                    diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
+                    fee: "1700/1600/1600/1000/1000/1000",
+                    career: { en: "MBBS / BDS / AYUSH", hi: "एमबीबीएस / बीडीएस / आयुष", mr: "एमबीबीएस / बीडीएस / आयुष" },
+                    link: "https://neet.ntaonline.nic.in/",
+                    mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+                    examDate: "First Sunday of May",
+                    syllabus: "https://www.nta.ac.in/Download/Notice/Notice_20241230193629.pdf"
+                }
+            ],
+            upsc: [
+                {
+                    name: { en: "UPSC CSE", hi: "यूपीएससी सीएसई", mr: "यूपीएससी सीएसई" },
+                    minEdu: { en: "Bachelor’s degree", hi: "स्नातक डिग्री", mr: "पदवी" },
+                    minMarks: { en: "No minimum", hi: "कोई न्यूनतम नहीं", mr: "किमान नाही" },
+                    age: { en: "21–32", hi: "21–32", mr: "21–32" },
+                    body: { en: "UPSC", hi: "यूपीएससी", mr: "यूपीएससी" },
+                    level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+                    diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
+                    fee: "100/100/100/0/0/0",
+                    career: { en: "IAS, IPS", hi: "आईएएस, आईपीएस", mr: "आयएएस, आयपीएस" },
+                    link: "https://upsconline.nic.in/ocm/index.php",
+                    mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+                    examDate: "Last Sunday of May (Prelims)",
+                    syllabus: "https://upsc.gov.in/examinations/revised-syllabus-scheme"
+                },
+                {
+                    name: { en: "UPSC IFoS", hi: "यूपीएससी आईएफओएस", mr: "यूपीएससी आयएफओएस" },
+                    minEdu: { en: "Bachelor’s (Science/Engg)", hi: "स्नातक (विज्ञान/इंजीनियरिंग)", mr: "पदवी (विज्ञान/अभियांत्रिकी)" },
+                    minMarks: { en: "No minimum", hi: "कोई न्यूनतम नहीं", mr: "किमान नाही" },
+                    age: { en: "21–32", hi: "21–32", mr: "21–32" },
+                    body: { en: "UPSC", hi: "यूपीएससी", mr: "यूपीएससी" },
+                    level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+                    diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
+                    fee: "100/100/100/0/0/0",
+                    career: { en: "Indian Forest Service", hi: "भारतीय वन सेवा", mr: "भारतीय वनसेवा" },
+                    link: "https://upsconline.nic.in/ocm/index.php",
+                    mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+                    examDate: "Same day as CSE Prelims",
+                    syllabus: "https://vajiramandravi.com/upsc-exam/ifos-syllabus/"
+                }
+            ],
+            professional: [
+                {
+                    name: { en: "CA Foundation", hi: "सीए फाउंडेशन", mr: "सीए फाउंडेशन" },
+                    minEdu: { en: "12th (any stream)", hi: "12वीं (कोई भी स्ट्रीम)", mr: "12वी (कोणताही प्रवाह)" },
+                    minMarks: { en: "Pass", hi: "उत्तीर्ण", mr: "उत्तीर्ण" },
+                    age: { en: "No limit", hi: "कोई सीमा नहीं", mr: "मर्यादा नाही" },
+                    body: { en: "ICAI", hi: "आईसीएआई", mr: "आयसीएआय" },
+                    level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+                    diff: { en: "High", hi: "उच्च", mr: "उच्च" },
+                    fee: "9200/9200/9200/9200/9200/9200",
+                    career: { en: "Chartered Accountant", hi: "चार्टर्ड अकाउंटेंट", mr: "चार्टर्ड अकाउंटंट" },
+                    link: "https://www.icai.org/post/foundation-nset",
+                    mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+                    examDate: "January / May / September",
+                    syllabus: "https://www.icai.org/post/foundation-nset"
+                }
+            ]
+        };
+
+        function renderChips() {
+            const t = translations[currentLang];
+            ['grp-edu', 'grp-stream', 'grp-cat'].forEach(id => document.getElementById(id).innerHTML = '');
+
+            // Education Levels (NO 10th)
+            ['12th', 'grad', 'post_grad'].forEach(key => {
+                const chip = document.createElement('div');
+                chip.className = `chip ${selectedFilters.level === key ? 'selected' : ''}`;
+                chip.textContent = t.levels[key];
+                chip.dataset.value = key;
+                chip.onclick = () => selectChip(chip, 'level');
+                document.getElementById('grp-edu').appendChild(chip);
+            });
+
+            // Streams
+            Object.keys(translations.en.streams).forEach(key => {
+                const chip = document.createElement('div');
+                chip.className = `chip ${selectedFilters.stream === key ? 'selected' : ''}`;
+                chip.textContent = t.streams[key];
+                chip.dataset.value = key;
+                chip.onclick = () => selectChip(chip, 'stream');
+                document.getElementById('grp-stream').appendChild(chip);
+            });
+
+            // Categories
+            Object.keys(translations.en.categories).forEach(key => {
+                const chip = document.createElement('div');
+                chip.className = `chip ${selectedFilters.cat === key ? 'selected' : ''}`;
+                chip.textContent = t.categories[key];
+                chip.dataset.value = key;
+                chip.onclick = () => selectChip(chip, 'cat');
+                document.getElementById('grp-cat').appendChild(chip);
+            });
+        }
+
+        function updateAllText() {
+            const t = translations[currentLang];
+            document.getElementById('page-title').textContent = t.title;
+            document.getElementById('name-title').textContent = t.name_title;
+            document.getElementById('name-desc').textContent = t.name_desc;
+            document.getElementById('filter-title').textContent = t.filter_title;
+            document.getElementById('edu-label').textContent = t.edu_label;
+            document.getElementById('stream-label').textContent = t.stream_label;
+            document.getElementById('cat-label').textContent = t.cat_label;
+            document.getElementById('results-title').textContent = t.results_title;
+            document.getElementById('back-to-name').textContent = t.back_to_name;
+            document.getElementById('back-to-filters').textContent = t.back_to_filters;
+
+            document.querySelector('#step-name .btn-primary').textContent = t.continue_btn;
+            const findBtn = document.querySelector('#step-filters .btn-primary');
+            if (findBtn) findBtn.textContent = t.find_exams_btn;
+            document.getElementById('studentName').placeholder = t.placeholder_name;
+
+            renderChips();
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+            updateAllText();
+        }
+
+        function selectChip(el, group) {
+            const parent = el.parentElement;
+            parent.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            const val = el.dataset.value;
+            if (group === 'level') selectedFilters.level = val;
+            if (group === 'stream') selectedFilters.stream = val;
+            if (group === 'cat') selectedFilters.cat = val;
+        }
+
+        function goToStep(step) {
+            document.getElementById('step-name').classList.add('hidden');
+            document.getElementById('step-filters').classList.add('hidden');
+            document.getElementById('step-results').classList.add('hidden');
+
+            if (step === 'name') {
+                document.getElementById('step-name').classList.remove('hidden');
+            } else if (step === 'filters') {
+                document.getElementById('step-filters').classList.remove('hidden');
+                renderChips();
+            }
+        }
+
+        function nextToFilters() {
+            const name = document.getElementById('studentName').value.trim();
+            if (!name) {
+                alert("Please enter your name.");
+                return;
+            }
+            goToStep('filters');
+        }
+
+        function showResults() {
+            goToStep('none');
+            document.getElementById('step-results').classList.remove('hidden');
+
+            const container = document.getElementById('results-container');
+            container.innerHTML = '';
+            const t = translations[currentLang];
+
+            const userStreams = selectedFilters.stream === 'any' 
+                ? Object.keys(examGroups) 
+                : [selectedFilters.stream];
+
+            for (const streamKey of userStreams) {
+                const exams = examGroups[streamKey] || [];
+                const filteredExams = exams.filter(exam => {
+                    const isUG = streamKey === 'ug';
+                    const isPG = ['upsc', 'professional'].includes(streamKey);
+                    if (isUG && ['12th'].includes(selectedFilters.level)) return true;
+                    if (isPG && ['grad', 'post_grad'].includes(selectedFilters.level)) return true;
+                    return false;
+                });
+
+                if (filteredExams.length > 0) {
+                    const section = document.createElement('div');
+                    section.className = 'results-section';
+                    const title = document.createElement('h3');
+                    title.className = 'section-title';
+                    title.textContent = t.streams[streamKey];
+                    section.appendChild(title);
+
+                    const tableDiv = document.createElement('div');
+                    tableDiv.className = 'results-table-container';
+                    const headers = t.table_headers.map(h => `<th>${h}</th>`).join('');
+                    const rows = filteredExams.map(exam => {
+                        const dev = (str) => toDevanagari(str, currentLang);
+                        return `
+                            <tr>
+                                <td><div class="exam-name">${exam.name[currentLang]}</div></td>
+                                <td>${exam.minEdu[currentLang]}</td>
+                                <td>${dev(exam.minMarks[currentLang])}</td>
+                                <td>${dev(exam.age[currentLang])}</td>
+                                <td>${exam.body[currentLang]}</td>
+                                <td>${exam.level[currentLang]}</td>
+                                <td>${exam.diff[currentLang]}</td>
+                                <td>${formatFeeCell(parseFee(exam.fee), currentLang)}</td>
+                                <td>${exam.career[currentLang]}</td>
+                                <td>${exam.mode[currentLang]}</td>
+                                <td>${exam.examDate || "TBA"}</td>
+                                <td>
+                                    ${exam.syllabus 
+                                        ? `<a href="${exam.syllabus}" target="_blank" class="syllabus-btn">${t.syllabus_label}</a>` 
+                                        : "Not available"}
+                                </td>
+                                <td><a href="${exam.link}" target="_blank" class="apply-btn">${t.apply_now}</a></td>
+                            </tr>
+                        `;
+                    }).join('');
+                    tableDiv.innerHTML = `<table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table>`;
+                    section.appendChild(tableDiv);
+                    container.appendChild(section);
+                }
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAllText();
+        });
+    </script>
+</body>
+</html>
