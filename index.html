@@ -449,89 +449,294 @@
         };
 
         // EXAM DATA FROM YOUR DATASET - FULLY UPDATED
-        const examGroups = {
-            ug: [
-                {
-                    name: { en: "JEE Main", hi: "जेईई मेन", mr: "जेईई मेन" },
-                    minEdu: { en: "12th (PCM)", hi: "12वीं (भौतिकी, रसायन, गणित)", mr: "12वी (भौतिकशास्त्र, रसायनशास्त्र, गणित)" },
-                    minMarks: { en: "75%", hi: "75%", mr: "75%" },
-                    age: { en: "NIL", hi: "कोई सीमा नहीं", mr: "मर्यादा नाही" },
-                    body: { en: "NTA", hi: "राष्ट्रीय परीक्षण एजेंसी", mr: "राष्ट्रीय चाचणी एजन्सी" },
-                    level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
-                    diff: { en: "High", hi: "उच्च", mr: "उच्च" },
-                    fee: "1000/1000/1000/500/500/500",
-                    career: { en: "B.Tech / B.E", hi: "बी.टेक / बी.ई", mr: "बी.टेक / बी.ई" },
-                    link: "https://jeemain.nta.ac.in/Registration/",
-                    mode: { en: "Computer", hi: "कंप्यूटर", mr: "संगणक" },
-                    examDate: "Last week of January (Session 1) / First week of April (Session 2)",
-                    syllabus: "https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2024/10/2024102841.pdf"
-                },
-                {
-                    name: { en: "NEET UG", hi: "नीट यूजी", mr: "नीट यूजी" },
-                    minEdu: { en: "12th (PCB)", hi: "12वीं (भौतिकी, रसायन, जीव विज्ञान)", mr: "12वी (भौतिकशास्त्र, रसायनशास्त्र, जीवशास्त्र)" },
-                    minMarks: { en: "50% Gen, 40% Res", hi: "सामान्य 50%, आरक्षित 40%", mr: "सामान्य 50%, आरक्षित 40%" },
-                    age: { en: "17–25", hi: "17–25", mr: "17–25" },
-                    body: { en: "NTA", hi: "राष्ट्रीय परीक्षण एजेंसी", mr: "राष्ट्रीय चाचणी एजन्सी" },
-                    level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
-                    diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
-                    fee: "1700/1600/1600/1000/1000/1000",
-                    career: { en: "MBBS / BDS / AYUSH", hi: "एमबीबीएस / बीडीएस / आयुष", mr: "एमबीबीएस / बीडीएस / आयुष" },
-                    link: "https://neet.ntaonline.nic.in/",
-                    mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
-                    examDate: "First Sunday of May",
-                    syllabus: "https://www.nta.ac.in/Download/Notice/Notice_20241230193629.pdf"
-                }
-            ],
-            upsc: [
-                {
-                    name: { en: "UPSC CSE", hi: "यूपीएससी सीएसई", mr: "यूपीएससी सीएसई" },
-                    minEdu: { en: "Bachelor’s degree", hi: "स्नातक डिग्री", mr: "पदवी" },
-                    minMarks: { en: "No minimum", hi: "कोई न्यूनतम नहीं", mr: "किमान नाही" },
-                    age: { en: "21–32", hi: "21–32", mr: "21–32" },
-                    body: { en: "UPSC", hi: "यूपीएससी", mr: "यूपीएससी" },
-                    level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
-                    diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
-                    fee: "100/100/100/0/0/0",
-                    career: { en: "IAS, IPS", hi: "आईएएस, आईपीएस", mr: "आयएएस, आयपीएस" },
-                    link: "https://upsconline.nic.in/ocm/index.php",
-                    mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
-                    examDate: "Last Sunday of May (Prelims)",
-                    syllabus: "https://upsc.gov.in/examinations/revised-syllabus-scheme"
-                },
-                {
-                    name: { en: "UPSC IFoS", hi: "यूपीएससी आईएफओएस", mr: "यूपीएससी आयएफओएस" },
-                    minEdu: { en: "Bachelor’s (Science/Engg)", hi: "स्नातक (विज्ञान/इंजीनियरिंग)", mr: "पदवी (विज्ञान/अभियांत्रिकी)" },
-                    minMarks: { en: "No minimum", hi: "कोई न्यूनतम नहीं", mr: "किमान नाही" },
-                    age: { en: "21–32", hi: "21–32", mr: "21–32" },
-                    body: { en: "UPSC", hi: "यूपीएससी", mr: "यूपीएससी" },
-                    level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
-                    diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
-                    fee: "100/100/100/0/0/0",
-                    career: { en: "Indian Forest Service", hi: "भारतीय वन सेवा", mr: "भारतीय वनसेवा" },
-                    link: "https://upsconline.nic.in/ocm/index.php",
-                    mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
-                    examDate: "Same day as CSE Prelims",
-                    syllabus: "https://vajiramandravi.com/upsc-exam/ifos-syllabus/"
-                }
-            ],
-            professional: [
-                {
-                    name: { en: "CA Foundation", hi: "सीए फाउंडेशन", mr: "सीए फाउंडेशन" },
-                    minEdu: { en: "12th (any stream)", hi: "12वीं (कोई भी स्ट्रीम)", mr: "12वी (कोणताही प्रवाह)" },
-                    minMarks: { en: "Pass", hi: "उत्तीर्ण", mr: "उत्तीर्ण" },
-                    age: { en: "No limit", hi: "कोई सीमा नहीं", mr: "मर्यादा नाही" },
-                    body: { en: "ICAI", hi: "आईसीएआई", mr: "आयसीएआय" },
-                    level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
-                    diff: { en: "High", hi: "उच्च", mr: "उच्च" },
-                    fee: "9200/9200/9200/9200/9200/9200",
-                    career: { en: "Chartered Accountant", hi: "चार्टर्ड अकाउंटेंट", mr: "चार्टर्ड अकाउंटंट" },
-                    link: "https://www.icai.org/post/foundation-nset",
-                    mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
-                    examDate: "January / May / September",
-                    syllabus: "https://www.icai.org/post/foundation-nset"
-                }
-            ]
-        };
+     const examGroups = {
+    ug: [
+        {
+            name: { en: "JEE Main", hi: "जेईई मेन", mr: "जेईई मेन" },
+            minEdu: { en: "12th (PCM)", hi: "12वीं (भौतिकी, रसायन, गणित)", mr: "12वी (भौतिकशास्त्र, रसायनशास्त्र, गणित)" },
+            minMarks: { en: "75%", hi: "75%", mr: "75%" },
+            age: { en: "NIL", hi: "कोई सीमा नहीं", mr: "मर्यादा नाही" },
+            body: { en: "NTA", hi: "राष्ट्रीय परीक्षण एजेंसी", mr: "राष्ट्रीय चाचणी एजन्सी" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "High", hi: "उच्च", mr: "उच्च" },
+            fee: "1000/1000/1000/500/500/500",
+            career: { en: "B.Tech / B.E", hi: "बी.टेक / बी.ई", mr: "बी.टेक / बी.ई" },
+            link: "https://jeemain.nta.ac.in/Registration/",
+            mode: { en: "Computer", hi: "कंप्यूटर", mr: "संगणक" },
+            examDate: "Last week of January (Session 1) / First week of April (Session 2)",
+            syllabus: "https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2024/10/2024102841.pdf"
+        },
+        {
+            name: { en: "NEET UG", hi: "नीट यूजी", mr: "नीट यूजी" },
+            minEdu: { en: "12th (PCB)", hi: "12वीं (भौतिकी, रसायन, जीव विज्ञान)", mr: "12वी (भौतिकशास्त्र, रसायनशास्त्र, जीवशास्त्र)" },
+            minMarks: { en: "50% Gen, 40% Res", hi: "सामान्य 50%, आरक्षित 40%", mr: "सामान्य 50%, आरक्षित 40%" },
+            age: { en: "17–25", hi: "17–25", mr: "17–25" },
+            body: { en: "NTA", hi: "राष्ट्रीय परीक्षण एजेंसी", mr: "राष्ट्रीय चाचणी एजन्सी" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
+            fee: "1700/1600/1600/1000/1000/1000",
+            career: { en: "MBBS / BDS / AYUSH", hi: "एमबीबीएस / बीडीएस / आयुष", mr: "एमबीबीएस / बीडीएस / आयुष" },
+            link: "https://neet.ntaonline.nic.in/",
+            mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+            examDate: "First Sunday of May",
+            syllabus: "https://www.nta.ac.in/Download/Notice/Notice_20241230193629.pdf"
+        },
+        {
+            name: { en: "CUET UG", hi: "सीयूईटी यूजी", mr: "सीयूईटी यूजी" },
+            minEdu: { en: "12th (Any stream)", hi: "12वीं (कोई भी स्ट्रीम)", mr: "12वी (कोणताही प्रवाह)" },
+            minMarks: { en: "Pass", hi: "उत्तीर्ण", mr: "उत्तीर्ण" },
+            age: { en: "NIL", hi: "कोई सीमा नहीं", mr: "मर्यादा नाही" },
+            body: { en: "NTA", hi: "राष्ट्रीय परीक्षण एजेंसी", mr: "राष्ट्रीय चाचणी एजन्सी" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "Medium", hi: "मध्यम", mr: "मध्यम" },
+            fee: "1000/900/900/800/800/800",
+            career: { en: "BA / BSc / BCom / BBA", hi: "बीए / बीएससी / बीकॉम / बीबीए", mr: "बीए / बीएससी / बीकॉम / बीबीए" },
+            link: "https://cuet.nta.nic.in",
+            mode: { en: "Computer", hi: "कंप्यूटर", mr: "संगणक" },
+            examDate: "Third week of May",
+            syllabus: "https://cuet.nta.nic.in/syllabus/"
+        },
+        {
+            name: { en: "MHT-CET", hi: "एमएचटी-सीईटी", mr: "एमएचटी-सीईटी" },
+            minEdu: { en: "12th (PCM/PCB)", hi: "12वीं (भौतिकी, रसायन, जीव विज्ञान)", mr: "12वी (भौतिकशास्त्र, रसायनशास्त्र, जीवशास्त्र)" },
+            minMarks: { en: "Pass", hi: "उत्तीर्ण", mr: "उत्तीर्ण" },
+            age: { en: "NIL", hi: "कोई सीमा नहीं", mr: "मर्यादा नाही" },
+            body: { en: "State CET Cell MH", hi: "राज्य सीईटी सेल, महाराष्ट्र", mr: "राज्य सीईटी सेल, महाराष्ट्र" },
+            level: { en: "State", hi: "राज्य", mr: "राज्य" },
+            diff: { en: "Medium–High", hi: "मध्यम–उच्च", mr: "मध्यम–उच्च" },
+            fee: "1300/800/800/800/800/800",
+            career: { en: "B.Tech / B.Pharm", hi: "बी.टेक / बी.फार्म", mr: "बी.टेक / बी.फार्म" },
+            link: "https://cetcell.mahacet.org",
+            mode: { en: "Computer", hi: "कंप्यूटर", mr: "संगणक" },
+            examDate: "Second–Fourth week of April",
+            syllabus: "https://cetcell.mahacet.org/wp-content/uploads/2023/12/Syllabus.pdf"
+        },
+        {
+            name: { en: "CLAT", hi: "क्लैट", mr: "क्लॅट" },
+            minEdu: { en: "12th (Any)", hi: "12वीं (कोई भी)", mr: "12वी (कोणतीही)" },
+            minMarks: { en: "45% Gen, 40% Res", hi: "सामान्य 45%, आरक्षित 40%", mr: "सामान्य 45%, आरक्षित 40%" },
+            age: { en: "NIL", hi: "कोई सीमा नहीं", mr: "मर्यादा नाही" },
+            body: { en: "NLU Consortium", hi: "एनएलयू कंसोर्टियम", mr: "एनएलयू कन्सोर्टियम" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "High", hi: "उच्च", mr: "उच्च" },
+            fee: "4000/3500/3500/3500/3500/3500",
+            career: { en: "BA LLB / BBA LLB", hi: "बीए एलएलबी / बीबीए एलएलबी", mr: "बीए एलएलबी / बीबीए एलएलबी" },
+            link: "https://consortiumofnlus.ac.in",
+            mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+            examDate: "First Sunday of December (previous year)",
+            syllabus: "https://consortiumofnlus.ac.in/clat-2026/ug-syllabus.html"
+        }
+    ],
+    management: [
+        {
+            name: { en: "CAT", hi: "सीएटी", mr: "सीएटी" },
+            minEdu: { en: "Bachelor’s degree (Any)", hi: "स्नातक डिग्री (कोई भी)", mr: "पदवी (कोणतीही)" },
+            minMarks: { en: "50% (45% reserved)", hi: "50% (45% आरक्षित)", mr: "50% (45% आरक्षित)" },
+            age: { en: "None", hi: "कोई नहीं", mr: "काहीही नाही" },
+            body: { en: "Indian Institutes of Management", hi: "भारतीय प्रबंधन संस्थान", mr: "भारतीय व्यवस्थापन संस्था" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "Moderate to high", hi: "मध्यम से उच्च", mr: "मध्यम ते उच्च" },
+            fee: "2400/2400/2400/1200/1200/1200",
+            career: { en: "MBA/PGDM Admissions", hi: "एमबीए/पीजीडीएम प्रवेश", mr: "एमबीए/पीजीडीएम प्रवेश" },
+            link: "https://iimcat.ac.in/per/g06/pub/32842/ASM/WebPortal/1/index.html",
+            mode: { en: "Computer Based", hi: "कंप्यूटर आधारित", mr: "संगणक आधारित" },
+            examDate: "Last Sunday of November",
+            syllabus: "https://www.imsindia.com/blog/cat/cat-syllabus/"
+        },
+        {
+            name: { en: "XAT", hi: "एक्सएटी", mr: "एक्सएटी" },
+            minEdu: { en: "Bachelor’s degree (Any)", hi: "स्नातक डिग्री (कोई भी)", mr: "पदवी (कोणतीही)" },
+            minMarks: { en: "None officially specified", hi: "कोई निर्दिष्ट नहीं", mr: "काहीही निर्दिष्ट नाही" },
+            age: { en: "None", hi: "कोई नहीं", mr: "काहीही नाही" },
+            body: { en: "XLRI Jamshedpur", hi: "एक्सएलआरआई जमशेदपुर", mr: "एक्सएलआरआय जमशेदपूर" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "Moderate to high", hi: "मध्यम से उच्च", mr: "मध्यम ते उच्च" },
+            fee: "2100/2100/2100/2100/2100/2100",
+            career: { en: "MBA/PGDM Admissions", hi: "एमबीए/पीजीडीएम प्रवेश", mr: "एमबीए/पीजीडीएम प्रवेश" },
+            link: "https://xatonline.in/",
+            mode: { en: "Computer Based", hi: "कंप्यूटर आधारित", mr: "संगणक आधारित" },
+            examDate: "First Sunday of January",
+            syllabus: "https://xatonline.in/blog/xat-2026-syllabus-exam-pattern"
+        }
+    ],
+    upsc: [
+        {
+            name: { en: "UPSC CSE", hi: "यूपीएससी सीएसई", mr: "यूपीएससी सीएसई" },
+            minEdu: { en: "Bachelor’s degree", hi: "स्नातक डिग्री", mr: "पदवी" },
+            minMarks: { en: "No minimum", hi: "कोई न्यूनतम नहीं", mr: "किमान नाही" },
+            age: { en: "21–32", hi: "21–32", mr: "21–32" },
+            body: { en: "UPSC", hi: "यूपीएससी", mr: "यूपीएससी" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
+            fee: "100/100/100/0/0/0",
+            career: { en: "IAS, IPS", hi: "आईएएस, आईपीएस", mr: "आयएएस, आयपीएस" },
+            link: "https://upsconline.nic.in/ocm/index.php",
+            mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+            examDate: "Last Sunday of May (Prelims)",
+            syllabus: "https://upsc.gov.in/examinations/revised-syllabus-scheme"
+        },
+        {
+            name: { en: "UPSC IFoS", hi: "यूपीएससी आईएफओएस", mr: "यूपीएससी आयएफओएस" },
+            minEdu: { en: "Bachelor’s (Science/Engg)", hi: "स्नातक (विज्ञान/इंजीनियरिंग)", mr: "पदवी (विज्ञान/अभियांत्रिकी)" },
+            minMarks: { en: "No minimum", hi: "कोई न्यूनतम नहीं", mr: "किमान नाही" },
+            age: { en: "21–32", hi: "21–32", mr: "21–32" },
+            body: { en: "UPSC", hi: "यूपीएससी", mr: "यूपीएससी" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
+            fee: "100/100/100/0/0/0",
+            career: { en: "Indian Forest Service", hi: "भारतीय वन सेवा", mr: "भारतीय वनसेवा" },
+            link: "https://upsconline.nic.in/ocm/index.php",
+            mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+            examDate: "Same day as CSE Prelims",
+            syllabus: "https://vajiramandravi.com/upsc-exam/ifos-syllabus/"
+        },
+        {
+            name: { en: "UPSC ESE/IES", hi: "यूपीएससी ईएसई/आईईएस", mr: "यूपीएससी ईएसई/आयईएस" },
+            minEdu: { en: "Engineering degree", hi: "इंजीनियरिंग डिग्री", mr: "अभियांत्रिकी पदवी" },
+            minMarks: { en: "No minimum", hi: "कोई न्यूनतम नहीं", mr: "किमान नाही" },
+            age: { en: "21–30", hi: "21–30", mr: "21–30" },
+            body: { en: "UPSC", hi: "यूपीएससी", mr: "यूपीएससी" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
+            fee: "200/200/200/0/0/0",
+            career: { en: "Group-A Engineering", hi: "ग्रुप-ए इंजीनियरिंग", mr: "गट-अ अभियांत्रिकी" },
+            link: "https://upsconline.nic.in/ocm/index.php",
+            mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+            examDate: "Second week of February",
+            syllabus: "https://upsc.gov.in/examinations/Engineering%20Services%20%28Preliminary%29%20Examination%2C%202025"
+        }
+    ],
+    banking: [
+        {
+            name: { en: "SBI PO", hi: "एसबीआई पीओ", mr: "एसबीआय पीओ" },
+            minEdu: { en: "Bachelor’s degree", hi: "स्नातक डिग्री", mr: "पदवी" },
+            minMarks: { en: "No minimum specified", hi: "न्यूनतम निर्दिष्ट नहीं", mr: "किमान निर्दिष्ट नाही" },
+            age: { en: "21–30", hi: "21–30", mr: "21–30" },
+            body: { en: "State Bank of India", hi: "भारतीय स्टेट बैंक", mr: "स्टेट बँक ऑफ इंडिया" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "High", hi: "उच्च", mr: "उच्च" },
+            fee: "750/750/750/0/0/0",
+            career: { en: "Probationary Officer", hi: "प्रशिक्षु अधिकारी", mr: "प्रशिक्षणाधीन अधिकारी" },
+            link: "https://sbi.co.in/web/careers",
+            mode: { en: "Computer Based", hi: "कंप्यूटर आधारित", mr: "संगणक आधारित" },
+            examDate: "First–Second week of July (Prelims)",
+            syllabus: "https://www.careerpower.in/sbi-po-syllabus.html"
+        },
+        {
+            name: { en: "IBPS PO", hi: "आईबीपीएस पीओ", mr: "आयबीपीएस पीओ" },
+            minEdu: { en: "Bachelor’s degree", hi: "स्नातक डिग्री", mr: "पदवी" },
+            minMarks: { en: "No minimum specified", hi: "न्यूनतम निर्दिष्ट नहीं", mr: "किमान निर्दिष्ट नाही" },
+            age: { en: "20–30", hi: "20–30", mr: "20–30" },
+            body: { en: "IBPS", hi: "आईबीपीएस", mr: "आयबीपीएस" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "High", hi: "उच्च", mr: "उच्च" },
+            fee: "850/850/850/175/175/175",
+            career: { en: "Probationary Officer", hi: "प्रशिक्षु अधिकारी", mr: "प्रशिक्षणाधीन अधिकारी" },
+            link: "https://ibpsonline.ibps.in/",
+            mode: { en: "Computer Based", hi: "कंप्यूटर आधारित", mr: "संगणक आधारित" },
+            examDate: "Second week of October (Prelims)",
+            syllabus: "https://www.careerpower.in/ibps-po-syllabus-exam-pattern.html"
+        }
+    ],
+    ssc: [
+        {
+            name: { en: "SSC CGL", hi: "एसएससी सीजीएल", mr: "एसएससी सीजीएल" },
+            minEdu: { en: "Bachelor’s degree", hi: "स्नातक डिग्री", mr: "पदवी" },
+            minMarks: { en: "No minimum specified", hi: "न्यूनतम निर्दिष्ट नहीं", mr: "किमान निर्दिष्ट नाही" },
+            age: { en: "18–32", hi: "18–32", mr: "18–32" },
+            body: { en: "Staff Selection Commission", hi: "कर्मचारी चयन आयोग", mr: "कर्मचारी निवड आयोग" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "High", hi: "उच्च", mr: "उच्च" },
+            fee: "100/100/100/0/0/0",
+            career: { en: "Group B & C Central Govt Jobs", hi: "ग्रुप बी और सी केंद्र सरकारी नौकरियाँ", mr: "गट बी आणि सी केंद्र शासन नोकऱ्या" },
+            link: "https://ssc.nic.in/OnlineApplication/",
+            mode: { en: "Computer Based", hi: "कंप्यूटर आधारित", mr: "संगणक आधारित" },
+            examDate: "June–July",
+            syllabus: "https://ssc.nic.in/Portal/Syllabus"
+        },
+        {
+            name: { en: "SSC CHSL", hi: "एसएससी सीएचएसएल", mr: "एसएससी सीएचएसएल" },
+            minEdu: { en: "12th Pass", hi: "12वीं उत्तीर्ण", mr: "12वी उत्तीर्ण" },
+            minMarks: { en: "No minimum specified", hi: "न्यूनतम निर्दिष्ट नहीं", mr: "किमान निर्दिष्ट नाही" },
+            age: { en: "18–27", hi: "18–27", mr: "18–27" },
+            body: { en: "SSC", hi: "एसएससी", mr: "एसएससी" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "Medium", hi: "मध्यम", mr: "मध्यम" },
+            fee: "100/100/100/0/0/0",
+            career: { en: "Clerical / Data Entry Roles", hi: "क्लर्की / डेटा एंट्री भूमिकाएँ", mr: "लिपिकीय / डेटा प्रविष्टी भूमिका" },
+            link: "https://ssc.nic.in/OnlineApplication/",
+            mode: { en: "Computer Based", hi: "कंप्यूटर आधारित", mr: "संगणक आधारित" },
+            examDate: "July–August",
+            syllabus: "https://www.careerpower.in/ssc-chsl-syllabus.html"
+        }
+    ],
+    regulatory: [
+        {
+            name: { en: "RBI Grade B", hi: "आरबीआई ग्रेड बी", mr: "आरबीआय ग्रेड बी" },
+            minEdu: { en: "Bachelor’s degree", hi: "स्नातक डिग्री", mr: "पदवी" },
+            minMarks: { en: "60% (Gen/EWS), 50% (SC/ST/PwD)", hi: "60% (सामान्य/ईडब्ल्यूएस), 50% (अनुसूचित जाति/अनुसूचित जनजाति/पीडब्ल्यूडी)", mr: "60% (सामान्य/ईडब्ल्यूएस), 50% (अनुसूचित जाती/अनुसूचित जमाती/पीडब्ल्यूडी)" },
+            age: { en: "21–30", hi: "21–30", mr: "21–30" },
+            body: { en: "Reserve Bank of India", hi: "भारतीय रिज़र्व बैंक", mr: "भारतीय रिझर्व्ह बँक" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
+            fee: "850/850/850/100/100/100",
+            career: { en: "Central Banking, Policy, Regulation", hi: "केंद्रीय बैंकिंग, नीति, नियमन", mr: "केंद्रीय बँकिंग, धोरण, नियमन" },
+            link: "https://opportunities.rbi.org.in/",
+            mode: { en: "Computer Based", hi: "कंप्यूटर आधारित", mr: "संगणक आधारित" },
+            examDate: "First week of June (Phase I)",
+            syllabus: "https://www.adda247.com/rbi-grade-b/syllabus"
+        }
+    ],
+    state_psc: [
+        {
+            name: { en: "MPSC State Services", hi: "एमपीएससी राज्य सेवा", mr: "एमपीएससी राज्यसेवा" },
+            minEdu: { en: "Bachelor’s degree", hi: "स्नातक डिग्री", mr: "पदवी" },
+            minMarks: { en: "No minimum specified", hi: "न्यूनतम निर्दिष्ट नहीं", mr: "किमान निर्दिष्ट नाही" },
+            age: { en: "19–38", hi: "19–38", mr: "19–38" },
+            body: { en: "Maharashtra PSC", hi: "महाराष्ट्र लोक सेवा आयोग", mr: "महाराष्ट्र लोकसेवा आयोग" },
+            level: { en: "State", hi: "राज्य", mr: "राज्य" },
+            diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
+            fee: "394/294/294/194/194/194",
+            career: { en: "Deputy Collector, DSP", hi: "उपजिलाधिकारी, डीएसपी", mr: "उपजिल्हाधिकारी, डीएसपी" },
+            link: "https://mpsc.gov.in",
+            mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+            examDate: "First week of June",
+            syllabus: "https://mpsc.gov.in/examination_syllabus/18"
+        },
+        {
+            name: { en: "UPPSC PCS", hi: "यूपीपीएससी पीसीएस", mr: "यूपीपीएससी पीसीएस" },
+            minEdu: { en: "Bachelor’s degree", hi: "स्नातक डिग्री", mr: "पदवी" },
+            minMarks: { en: "No minimum specified", hi: "न्यूनतम निर्दिष्ट नहीं", mr: "किमान निर्दिष्ट नाही" },
+            age: { en: "21–40", hi: "21–40", mr: "21–40" },
+            body: { en: "Uttar Pradesh PSC", hi: "उत्तर प्रदेश लोक सेवा आयोग", mr: "उत्तर प्रदेश लोकसेवा आयोग" },
+            level: { en: "State", hi: "राज्य", mr: "राज्य" },
+            diff: { en: "Very High", hi: "अत्यधिक उच्च", mr: "अत्यंत उच्च" },
+            fee: "125/125/125/65/65/25",
+            career: { en: "SDM, DSP, BDO", hi: "एसडीएम, डीएसपी, बीडीओ", mr: "एसडीएम, डीएसपी, बीडीओ" },
+            link: "https://uppsc.up.nic.in",
+            mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+            examDate: "Second week of October",
+            syllabus: "https://www.sanskritiias.com/uppsc/syllabus/uppsc-exam-pattern-and-syllabus"
+        }
+    ],
+    professional: [
+        {
+            name: { en: "CA Foundation", hi: "सीए फाउंडेशन", mr: "सीए फाउंडेशन" },
+            minEdu: { en: "12th (any stream)", hi: "12वीं (कोई भी स्ट्रीम)", mr: "12वी (कोणताही प्रवाह)" },
+            minMarks: { en: "Pass", hi: "उत्तीर्ण", mr: "उत्तीर्ण" },
+            age: { en: "No limit", hi: "कोई सीमा नहीं", mr: "मर्यादा नाही" },
+            body: { en: "ICAI", hi: "आईसीएआई", mr: "आयसीएआय" },
+            level: { en: "National", hi: "राष्ट्रीय", mr: "राष्ट्रीय" },
+            diff: { en: "High", hi: "उच्च", mr: "उच्च" },
+            fee: "9200/9200/9200/9200/9200/9200",
+            career: { en: "Chartered Accountant", hi: "चार्टर्ड अकाउंटेंट", mr: "चार्टर्ड अकाउंटंट" },
+            link: "https://www.icai.org/post/foundation-nset",
+            mode: { en: "Written", hi: "लिखित", mr: "लेखी" },
+            examDate: "January / May / September",
+            syllabus: "https://www.icai.org/post/foundation-nset"
+        }
+    ]
+};
 
         function renderChips() {
             const t = translations[currentLang];
