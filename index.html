@@ -19,7 +19,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -329,6 +329,35 @@
             display: none;
         }
         
+        .filter-summary {
+            background: #f0f4ff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .filter-summary p {
+            margin: 5px 0;
+            color: #555;
+        }
+        
+        .filter-summary strong {
+            color: #667eea;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .no-results h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -414,640 +443,19 @@
                 <button class="btn" onclick="showExams()" data-en="Find & Compare Exams" data-hi="परीक्षाएं खोजें और तुलना करें" data-mr="परीक्षा शोधा आणि तुलना करा">Find & Compare Exams</button>
             </div>
             
-            <!-- Step 3: Exam Results (TABLE FORMAT) -->
+            <!-- Step 3: Exam Results (TABLE FORMAT with Filtering) -->
             <div id="step3" class="step-section hidden">
                 <button class="back-btn" onclick="goToStep2()">← <span data-en="Back to Filters" data-hi="फ़िल्टर पर वापस जाएं" data-mr="फिल्टरमध्ये परत">Back to Filters</span></button>
                 <div class="user-greeting" id="userGreeting"></div>
                 <h2 class="step-title" data-en="Recommended Exams by Category" data-hi="श्रेणी द्वारा अनुशंसित परीक्षाएं" data-mr="वर्गानुसार शिफारस केलेल्या परीक्षा">Recommended Exams by Category</h2>
                 
-                <!-- Management & Business School Exams -->
-                <div class="category-section">
-                    <h3 class="category-title" data-en="📊 Management and Business School Exams" data-hi="📊 प्रबंधन और बिजनेस स्कूल परीक्षाएं" data-mr="📊 व्यवस्थापन आणि बिझनेस स्कूल परीक्षा">📊 Management and Business School Exams</h3>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead>
-                                <tr>
-                                    <th data-en="Exam Name" data-hi="परीक्षा का नाम" data-mr="परीक्षेचे नाव">Exam Name</th>
-                                    <th data-en="Conducting Body" data-hi="संचालन निकाय" data-mr="संचालन संस्था">Conducting Body</th>
-                                    <th data-en="Career Path" data-hi="करियर पथ" data-mr="करिअर मार्ग">Career Path</th>
-                                    <th data-en="Exam Date" data-hi="परीक्षा तिथि" data-mr="परीक्षा दिनांक">Exam Date</th>
-                                    <th data-en="Exam Mode" data-hi="परीक्षा मोड" data-mr="परीक्षा पद्धत">Exam Mode</th>
-                                    <th data-en="Details" data-hi="विवरण" data-mr="तपशील">Details</th>
-                                    <th data-en="Links" data-hi="लिंक" data-mr="लिंक्स">Links</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="exam-name">CAT</td>
-                                    <td>Indian Institutes of Management</td>
-                                    <td>MBA/PGDM Admissions</td>
-                                    <td>Last Sunday of November</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty" data-en="Moderate to High" data-hi="मध्यम से उच्च" data-mr="मध्यम ते उच्च">Moderate to High</span><br>
-                                        <span class="info-badge badge-level" data-en="National" data-hi="राष्ट्रीय" data-mr="राष्ट्रीय">National</span><br>
-                                        <span class="info-badge badge-fee" data-en="₹2,400 (Gen)" data-hi="₹2,400 (सामान्य)" data-mr="₹2,400 (जनरल)">₹2,400 (Gen)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.imsindia.com/blog/cat/cat-syllabus/" target="_blank">📖 Syllabus</a>
-                                        <a href="https://iimcat.ac.in/per/g06/pub/32842/ASM/WebPortal/1/index.html" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">XAT</td>
-                                    <td>XLRI Jamshedpur</td>
-                                    <td>MBA/PGDM Admissions</td>
-                                    <td>First Sunday of January</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Moderate to High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹2,100+</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://xatonline.in/blog/xat-2026-syllabus-exam-pattern" target="_blank">📖 Syllabus</a>
-                                        <a href="https://xatonline.in/" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">GMAT</td>
-                                    <td>GMAC</td>
-                                    <td>Global MBA / Management</td>
-                                    <td>Year Round (Anytime)</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Moderate</span><br>
-                                        <span class="info-badge badge-level">International</span><br>
-                                        <span class="info-badge badge-fee">USD 275 (~₹23,000)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://gmatpoint.com/gmat-syllabus/" target="_blank">📖 Syllabus</a>
-                                        <a href="https://www.mba.com/exams/gmat-exam/about" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">MAT</td>
-                                    <td>AIMA</td>
-                                    <td>MBA/PGDM Admissions</td>
-                                    <td>Feb, May, Sep, Dec (4 times/year)</td>
-                                    <td>Computer/Paper Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Moderate</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">Varies by session</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.shiksha.com/mba/mat-exam-syllabus" target="_blank">📖 Syllabus</a>
-                                        <a href="https://mat.aima.in/" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">CMAT</td>
-                                    <td>National Testing Agency</td>
-                                    <td>MBA/PGDM Admissions</td>
-                                    <td>January</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Moderate</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹1,600 (Gen)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://cracku.in/cmat-syllabus-pdf/" target="_blank">📖 Syllabus</a>
-                                        <a href="https://cmat.nta.nic.in/" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">SNAP</td>
-                                    <td>Symbiosis International University</td>
-                                    <td>MBA/PGDM Admissions</td>
-                                    <td>December (3 attempts)</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Moderate</span><br>
-                                        <span class="info-badge badge-level">University</span><br>
-                                        <span class="info-badge badge-fee">₹2,250 per attempt</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.snaptest.org/snap-exam-syllabus.html" target="_blank">📖 Syllabus</a>
-                                        <a href="https://www.snaptest.org/" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">NMAT</td>
-                                    <td>GMAC</td>
-                                    <td>MBA/PGDM / Global</td>
-                                    <td>November - December (3 attempts)</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Moderate</span><br>
-                                        <span class="info-badge badge-level">National/International</span><br>
-                                        <span class="info-badge badge-fee">₹3,000 per attempt</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://cracku.in/nmat-syllabus/" target="_blank">📖 Syllabus</a>
-                                        <a href="https://www.mba.com/exams/nmat" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">MICAT 2026</td>
-                                    <td>MICA Ahmedabad</td>
-                                    <td>MBA/PGDM (Marketing, Communications)</td>
-                                    <td>Phase 1: December, Phase 2: February</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Moderate to High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹2,500 per attempt</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.mbauniverse.com/micat/syllabus" target="_blank">📖 Syllabus</a>
-                                        <a href="https://www.mica.ac.in/mica-admissions-2026/" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">GRE General Test</td>
-                                    <td>ETS</td>
-                                    <td>MS / MBA / PhD / Graduate Programs</td>
-                                    <td>Year Round (Every 21 days)</td>
-                                    <td>Computer Based / At Home</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Moderate to High</span><br>
-                                        <span class="info-badge badge-level">International</span><br>
-                                        <span class="info-badge badge-fee">₹22,000</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.ets.org/gre/test-takers/general-test/prepare/content.html" target="_blank">📖 Syllabus</a>
-                                        <a href="https://www.in.ets.org/gre.html" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <!-- Filter Summary -->
+                <div class="filter-summary">
+                    <p><strong data-en="Education Level:" data-hi="शिक्षा स्तर:" data-mr="शिक्षण स्तर:">Education Level:</strong> <span id="filterEduLevel"></span></p>
+                    <p><strong data-en="Stream / Field:" data-hi="स्ट्रीम / क्षेत्र:" data-mr="स्ट्रीम / क्षेत्र:">Stream / Field:</strong> <span id="filterStream"></span></p>
                 </div>
                 
-                <!-- UPSC Exams -->
-                <div class="category-section">
-                    <h3 class="category-title" data-en="🏛️ UPSC Exams" data-hi="🏛️ UPSC परीक्षाएं" data-mr="🏛️ UPSC परीक्षा">🏛️ UPSC Exams</h3>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead>
-                                <tr>
-                                    <th>Exam Name</th>
-                                    <th>Conducting Body</th>
-                                    <th>Career Path</th>
-                                    <th>Exam Date</th>
-                                    <th>Exam Mode</th>
-                                    <th>Details</th>
-                                    <th>Links</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="exam-name">UPSC Civil Services (CSE)</td>
-                                    <td>Union Public Service Commission</td>
-                                    <td>IAS, IPS, IFS, IRS, Allied Services</td>
-                                    <td>Prelims: Last Sunday of May | Mains: Third week of September</td>
-                                    <td>Written (Offline)</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Very High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹100 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://upsc.gov.in/examinations/revised-syllabus-scheme" target="_blank">📖 Syllabus</a>
-                                        <a href="https://upsconline.nic.in/" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">UPSC Indian Forest Service (IFoS)</td>
-                                    <td>Union Public Service Commission</td>
-                                    <td>Indian Forest Service Officer</td>
-                                    <td>Same day as CSE Prelims</td>
-                                    <td>Written (Offline)</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Very High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹100 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://vajiramandravi.com/upsc-exam/ifos-syllabus/" target="_blank">📖 Syllabus</a>
-                                        <a href="https://upsconline.nic.in/" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">UPSC Engineering Services (ESE/IES)</td>
-                                    <td>Union Public Service Commission</td>
-                                    <td>Group-A Engineering Services</td>
-                                    <td>Second week of February</td>
-                                    <td>Written (Offline)</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Very High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹200 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://upsc.gov.in/examinations/Engineering%20Services%20%28Preliminary%29%20Examination%2C%202025" target="_blank">📖 Syllabus</a>
-                                        <a href="https://upsconline.nic.in/" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">UPSC CDS</td>
-                                    <td>Union Public Service Commission</td>
-                                    <td>Armed Forces Officer (IMA, OTA, INA, AFA)</td>
-                                    <td>CDS-I: Second Sunday of April | CDS-II: First Sunday of September</td>
-                                    <td>Written (Offline)</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹200 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://upsc.gov.in/sites/default/files/Notifi-CDSE-I-2025-Engl-11122024F.pdf" target="_blank">📖 Syllabus</a>
-                                        <a href="https://upsconline.nic.in/" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">UPSC CAPF (Assistant Commandant)</td>
-                                    <td>Union Public Service Commission</td>
-                                    <td>Group-A Officer in CAPFs</td>
-                                    <td>First Sunday of August</td>
-                                    <td>Written (Offline)</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹200 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://testbook.com/upsc-capf-ac/syllabus-exam-pattern" target="_blank">📖 Syllabus</a>
-                                        <a href="https://upsconline.nic.in/" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">UPSC EPFO (EO/AO)</td>
-                                    <td>Union Public Service Commission</td>
-                                    <td>Enforcement Officer / Accounts Officer</td>
-                                    <td>First Sunday of September</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Medium-High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹25 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://testbook.com/upsc-epfo/syllabus" target="_blank">📖 Syllabus</a>
-                                        <a href="https://upsconline.nic.in/" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- Banking Exams -->
-                <div class="category-section">
-                    <h3 class="category-title" data-en="🏦 Banking Exams" data-hi="🏦 बैंकिंग परीक्षाएं" data-mr="🏦 बँकिंग परीक्षा">🏦 Banking Exams</h3>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead>
-                                <tr>
-                                    <th>Exam Name</th>
-                                    <th>Conducting Body</th>
-                                    <th>Career Path</th>
-                                    <th>Exam Date</th>
-                                    <th>Exam Mode</th>
-                                    <th>Details</th>
-                                    <th>Links</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="exam-name">SBI PO</td>
-                                    <td>State Bank of India</td>
-                                    <td>Probationary Officer (Banking Leadership)</td>
-                                    <td>First–Second week of July (Prelims)</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹750 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.careerpower.in/sbi-po-syllabus.html" target="_blank">📖 Syllabus</a>
-                                        <a href="https://sbi.co.in/web/careers" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">SBI Clerk (JA)</td>
-                                    <td>State Bank of India</td>
-                                    <td>Clerical Banking Services</td>
-                                    <td>Second week of August</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Medium</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹750 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.careerpower.in/sbi-clerk-syllabus.html" target="_blank">📖 Syllabus</a>
-                                        <a href="https://sbi.co.in/web/careers" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">IBPS PO</td>
-                                    <td>Institute of Banking Personnel Selection</td>
-                                    <td>Probationary Officer</td>
-                                    <td>Second week of October (Prelims)</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹850 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.careerpower.in/ibps-po-syllabus-exam-pattern.html" target="_blank">📖 Syllabus</a>
-                                        <a href="https://www.ibps.in" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">IBPS Clerk</td>
-                                    <td>Institute of Banking Personnel Selection</td>
-                                    <td>Clerical Banking Role</td>
-                                    <td>First week of December (Prelims)</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Medium</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹850 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.careerpower.in/ibps-clerk-syllabus-exam-pattern.html" target="_blank">📖 Syllabus</a>
-                                        <a href="https://www.ibps.in" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">RBI Assistant</td>
-                                    <td>Reserve Bank of India</td>
-                                    <td>Central Banking (Clerical)</td>
-                                    <td>Third week of November</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Medium-High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹450 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.careerpower.in/rbi-assistant-syllabus-exam-pattern.html" target="_blank">📖 Syllabus</a>
-                                        <a href="https://www.rbi.org.in" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- SSC Exams -->
-                <div class="category-section">
-                    <h3 class="category-title" data-en="📋 Staff Selection Commission (SSC) Exams" data-hi="📋 स्टाफ सिलेक्शन कमीशन (SSC) परीक्षाएं" data-mr="📋 स्टाफ सिलेक्शन कमिशन (SSC) परीक्षा">📋 Staff Selection Commission (SSC) Exams</h3>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead>
-                                <tr>
-                                    <th>Exam Name</th>
-                                    <th>Conducting Body</th>
-                                    <th>Career Path</th>
-                                    <th>Exam Date</th>
-                                    <th>Exam Mode</th>
-                                    <th>Details</th>
-                                    <th>Links</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="exam-name">SSC CGL</td>
-                                    <td>Staff Selection Commission</td>
-                                    <td>Group B & C Central Govt Jobs</td>
-                                    <td>June–July</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹100 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://ssc.nic.in/Portal/Syllabus" target="_blank">📖 Syllabus</a>
-                                        <a href="https://ssc.nic.in" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">SSC CHSL</td>
-                                    <td>Staff Selection Commission</td>
-                                    <td>Clerical / Data Entry Roles</td>
-                                    <td>July–August</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Medium</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹100 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.careerpower.in/ssc-chsl-syllabus.html" target="_blank">📖 Syllabus</a>
-                                        <a href="https://ssc.nic.in" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">SSC GD</td>
-                                    <td>Staff Selection Commission</td>
-                                    <td>Constable (CAPFs, Assam Rifles)</td>
-                                    <td>January–February</td>
-                                    <td>Computer Based + Physical</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Medium</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹100 (Gen/OBC/EWS)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.careerpower.in/ssc-gd-syllabus.html" target="_blank">📖 Syllabus</a>
-                                        <a href="https://ssc.nic.in" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- UG Exams -->
-                <div class="category-section">
-                    <h3 class="category-title" data-en="🎓 Undergraduate (UG) Exams" data-hi="🎓 स्नातक (UG) परीक्षाएं" data-mr="🎓 पदवीपूर्व (UG) परीक्षा">🎓 Undergraduate (UG) Exams</h3>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead>
-                                <tr>
-                                    <th>Exam Name</th>
-                                    <th>Conducting Body</th>
-                                    <th>Career Path</th>
-                                    <th>Exam Date</th>
-                                    <th>Exam Mode</th>
-                                    <th>Details</th>
-                                    <th>Links</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="exam-name">JEE Main</td>
-                                    <td>NTA</td>
-                                    <td>B.Tech / B.E / B.Arch</td>
-                                    <td>Session 1: Last week of January | Session 2: First week of April</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹1,000 (Gen)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2024/10/2024102841.pdf" target="_blank">📖 Syllabus</a>
-                                        <a href="https://jeemain.nta.nic.in" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">NEET UG</td>
-                                    <td>NTA</td>
-                                    <td>MBBS / BDS / AYUSH</td>
-                                    <td>First Sunday of May</td>
-                                    <td>Written</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Very High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹1,700 (Gen)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.nta.ac.in/Download/Notice/Notice_20241230193629.pdf" target="_blank">📖 Syllabus</a>
-                                        <a href="https://neet.nta.nic.in" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">CUET UG</td>
-                                    <td>NTA</td>
-                                    <td>BA / BSc / BCom / BBA</td>
-                                    <td>Third week of May</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Medium</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹1,000 (Gen)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://cuet.nta.nic.in/syllabus/" target="_blank">📖 Syllabus</a>
-                                        <a href="https://cuet.nta.nic.in" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">CLAT</td>
-                                    <td>NLU Consortium</td>
-                                    <td>BA LLB / BBA LLB</td>
-                                    <td>First Sunday of December (previous year)</td>
-                                    <td>Written</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹4,000 (Gen)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://consortiumofnlus.ac.in/clat-2026/ug-syllabus.html" target="_blank">📖 Syllabus</a>
-                                        <a href="https://consortiumofnlus.ac.in" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">NIFT Entrance</td>
-                                    <td>NIFT</td>
-                                    <td>Fashion Design</td>
-                                    <td>First week of February</td>
-                                    <td>Computer Based</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹3,000 (Gen)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.nift.ac.in/sites/default/files/inline-files/Syllabus%20of%20UG%20%26%20PG%20Prog..pdf" target="_blank">📖 Syllabus</a>
-                                        <a href="https://nift.ac.in" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- Professional Courses -->
-                <div class="category-section">
-                    <h3 class="category-title" data-en="💼 Professional Courses (CA, CS, CMA)" data-hi="💼 पेशेवर पाठ्यक्रम (CA, CS, CMA)" data-mr="💼 व्यावसायिक अभ्यासक्रम (CA, CS, CMA)">💼 Professional Courses (CA, CS, CMA)</h3>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead>
-                                <tr>
-                                    <th>Exam Name</th>
-                                    <th>Conducting Body</th>
-                                    <th>Career Path</th>
-                                    <th>Exam Date</th>
-                                    <th>Exam Mode</th>
-                                    <th>Details</th>
-                                    <th>Links</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="exam-name">CA Foundation</td>
-                                    <td>ICAI</td>
-                                    <td>Chartered Accountant</td>
-                                    <td>January / May / September</td>
-                                    <td>Written</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹9,200 (uniform)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.icai.org/post/foundation-nset" target="_blank">📖 Syllabus</a>
-                                        <a href="https://www.icai.org" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">CA Intermediate</td>
-                                    <td>ICAI</td>
-                                    <td>Chartered Accountant</td>
-                                    <td>January / May / September</td>
-                                    <td>Written</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">Very High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹18,000 (approx)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.icai.org/post/intermediate-nset" target="_blank">📖 Syllabus</a>
-                                        <a href="https://www.icai.org" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="exam-name">CS Executive</td>
-                                    <td>ICSI</td>
-                                    <td>Company Secretary</td>
-                                    <td>First week of June / December</td>
-                                    <td>Written</td>
-                                    <td>
-                                        <span class="info-badge badge-difficulty">High</span><br>
-                                        <span class="info-badge badge-level">National</span><br>
-                                        <span class="info-badge badge-fee">₹18,500 (approx)</span>
-                                    </td>
-                                    <td class="action-links">
-                                        <a href="https://www.icsi.edu/media/webmodules/125-130.pdf" target="_blank">📖 Syllabus</a>
-                                        <a href="https://www.icsi.edu" target="_blank">🔗 Official</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
+                <div id="examResults"></div>
             </div>
         </div>
     </div>
@@ -1058,16 +466,130 @@
         let selectedEduLevel = '';
         let selectedStream = '';
         
+        // Complete Exam Database from Education Dataset
+        const examDatabase = {
+            Management: {
+                PG: [
+                    { name: 'CAT', body: 'Indian Institutes of Management', career: 'MBA/PGDM Admissions', date: 'Last Sunday of November', mode: 'Computer Based', difficulty: 'Moderate to High', level: 'National', fee: '₹2,400 (Gen)', syllabus: 'https://www.imsindia.com/blog/cat/cat-syllabus/', official: 'https://iimcat.ac.in/per/g06/pub/32842/ASM/WebPortal/1/index.html' },
+                    { name: 'XAT', body: 'XLRI Jamshedpur', career: 'MBA/PGDM Admissions', date: 'First Sunday of January', mode: 'Computer Based', difficulty: 'Moderate to High', level: 'National', fee: '₹2,100+', syllabus: 'https://xatonline.in/blog/xat-2026-syllabus-exam-pattern', official: 'https://xatonline.in/' },
+                    { name: 'GMAT', body: 'GMAC', career: 'Global MBA / Management', date: 'Year Round (Anytime)', mode: 'Computer Based', difficulty: 'Moderate', level: 'International', fee: 'USD 275 (~₹23,000)', syllabus: 'https://gmatpoint.com/gmat-syllabus/', official: 'https://www.mba.com/exams/gmat-exam/about' },
+                    { name: 'MAT', body: 'AIMA', career: 'MBA/PGDM Admissions', date: 'Feb, May, Sep, Dec (4 times/year)', mode: 'Computer/Paper Based', difficulty: 'Moderate', level: 'National', fee: 'Varies by session', syllabus: 'https://www.shiksha.com/mba/mat-exam-syllabus', official: 'https://mat.aima.in/' },
+                    { name: 'CMAT', body: 'National Testing Agency', career: 'MBA/PGDM Admissions', date: 'January', mode: 'Computer Based', difficulty: 'Moderate', level: 'National', fee: '₹1,600 (Gen)', syllabus: 'https://cracku.in/cmat-syllabus-pdf/', official: 'https://cmat.nta.nic.in/' },
+                    { name: 'SNAP', body: 'Symbiosis International University', career: 'MBA/PGDM Admissions', date: 'December (3 attempts)', mode: 'Computer Based', difficulty: 'Moderate', level: 'University', fee: '₹2,250 per attempt', syllabus: 'https://www.snaptest.org/snap-exam-syllabus.html', official: 'https://www.snaptest.org/' },
+                    { name: 'NMAT', body: 'GMAC', career: 'MBA/PGDM / Global', date: 'November - December (3 attempts)', mode: 'Computer Based', difficulty: 'Moderate', level: 'National/International', fee: '₹3,000 per attempt', syllabus: 'https://cracku.in/nmat-syllabus/', official: 'https://www.mba.com/exams/nmat' },
+                    { name: 'MICAT 2026', body: 'MICA Ahmedabad', career: 'MBA/PGDM (Marketing, Communications)', date: 'Phase 1: December, Phase 2: February', mode: 'Computer Based', difficulty: 'Moderate to High', level: 'National', fee: '₹2,500 per attempt', syllabus: 'https://www.mbauniverse.com/micat/syllabus', official: 'https://www.mica.ac.in/mica-admissions-2026/' },
+                    { name: 'GRE General Test', body: 'ETS', career: 'MS / MBA / PhD / Graduate Programs', date: 'Year Round (Every 21 days)', mode: 'Computer Based / At Home', difficulty: 'Moderate to High', level: 'International', fee: '₹22,000', syllabus: 'https://www.ets.org/gre/test-takers/general-test/prepare/content.html', official: 'https://www.in.ets.org/gre.html' }
+                ],
+                UG: [
+                    { name: 'MAH BBA/BMS CET', body: 'State CET Cell MH', career: 'BBA / BMS / BCA', date: 'Last week of April', mode: 'Computer Based', difficulty: 'Medium', level: 'State', fee: '₹1,000 (Gen)', syllabus: 'https://cetcell.mahacet.org/wp-content/uploads/2023/12/MAH-B-BCA-BBA-BMS-BBM-CET-2024-25-Syllabus.pdf', official: 'https://cetcell.mahacet.org' },
+                    { name: 'SET', body: 'Symbiosis University', career: 'BBA / BCA / Media', date: 'First and Second week of May', mode: 'Computer Based', difficulty: 'Medium', level: 'University', fee: '₹2,250 (all)', syllabus: 'https://www.set-test.org/structure', official: 'https://www.set-test.org' },
+                    { name: 'NPAT', body: 'NMIMS', career: 'BBA / BCom / Econ', date: 'January to May (multiple slots)', mode: 'Computer Based', difficulty: 'Medium', level: 'University', fee: '₹2,000 (all)', syllabus: 'https://www.imsindia.com/blog/npat/npat-syllabus/', official: 'https://npat.nmims.edu' }
+                ]
+            },
+            Engineering: {
+                UG: [
+                    { name: 'JEE Main', body: 'NTA', career: 'B.Tech / B.E / B.Arch', date: 'Session 1: Last week of January | Session 2: First week of April', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹1,000 (Gen)', syllabus: 'https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2024/10/2024102841.pdf', official: 'https://jeemain.nta.nic.in' },
+                    { name: 'MHT-CET', body: 'State CET Cell MH', career: 'B.Tech / B.Pharm', date: 'Second–Fourth week of April', mode: 'Computer Based', difficulty: 'Medium–High', level: 'State', fee: '₹1,300 (Gen)', syllabus: 'https://cetcell.mahacet.org/wp-content/uploads/2023/12/Syllabus.pdf', official: 'https://cetcell.mahacet.org' },
+                    { name: 'UCEED', body: 'IIT Bombay', career: 'B.Des', date: 'Third Sunday of January', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹3,900 (Gen)', syllabus: 'https://www.uceed.iitb.ac.in/2026/syllabus.html', official: 'https://www.uceed.iitb.ac.in' }
+                ],
+                PG: [
+                    { name: 'UPSC ESE/IES', body: 'Union Public Service Commission', career: 'Group-A Engineering Services', date: 'Second week of February', mode: 'Written (Offline)', difficulty: 'Very High', level: 'National', fee: '₹200 (Gen/OBC/EWS)', syllabus: 'https://upsc.gov.in/examinations/Engineering%20Services%20%28Preliminary%29%20Examination%2C%202025', official: 'https://upsconline.nic.in/' }
+                ]
+            },
+            Medical: {
+                UG: [
+                    { name: 'NEET UG', body: 'NTA', career: 'MBBS / BDS / AYUSH', date: 'First Sunday of May', mode: 'Written', difficulty: 'Very High', level: 'National', fee: '₹1,700 (Gen)', syllabus: 'https://www.nta.ac.in/Download/Notice/Notice_20241230193629.pdf', official: 'https://neet.nta.nic.in' }
+                ],
+                PG: [
+                    { name: 'NEET PG', body: 'NBEMS', career: 'MD / MS / PG Medical', date: 'January', mode: 'Computer Based', difficulty: 'Very High', level: 'National', fee: '₹3,500 (Gen)', syllabus: 'https://nbe.edu.in', official: 'https://nbe.edu.in' }
+                ]
+            },
+            Law: {
+                UG: [
+                    { name: 'CLAT', body: 'NLU Consortium', career: 'BA LLB / BBA LLB', date: 'First Sunday of December (previous year)', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹4,000 (Gen)', syllabus: 'https://consortiumofnlus.ac.in/clat-2026/ug-syllabus.html', official: 'https://consortiumofnlus.ac.in' },
+                    { name: 'AILET', body: 'NLU Delhi', career: 'Law', date: 'Second Sunday of December (previous year)', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹3,050 (Gen)', syllabus: 'https://nationallawuniversitydelhi.in/ballb/exam-details.html', official: 'https://nationallawuniversitydelhi.in' }
+                ],
+                PG: [
+                    { name: 'CLAT PG', body: 'NLU Consortium', career: 'LLM', date: 'December', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹4,000 (Gen)', syllabus: 'https://consortiumofnlus.ac.in', official: 'https://consortiumofnlus.ac.in' }
+                ]
+            },
+            Government: {
+                PG: [
+                    { name: 'UPSC Civil Services (CSE)', body: 'Union Public Service Commission', career: 'IAS, IPS, IFS, IRS, Allied Services', date: 'Prelims: Last Sunday of May | Mains: Third week of September', mode: 'Written (Offline)', difficulty: 'Very High', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://upsc.gov.in/examinations/revised-syllabus-scheme', official: 'https://upsconline.nic.in/' },
+                    { name: 'UPSC IFoS', body: 'Union Public Service Commission', career: 'Indian Forest Service Officer', date: 'Same day as CSE Prelims', mode: 'Written (Offline)', difficulty: 'Very High', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://vajiramandravi.com/upsc-exam/ifos-syllabus/', official: 'https://upsconline.nic.in/' },
+                    { name: 'UPSC CDS', body: 'Union Public Service Commission', career: 'Armed Forces Officer (IMA, OTA, INA, AFA)', date: 'CDS-I: Second Sunday of April | CDS-II: First Sunday of September', mode: 'Written (Offline)', difficulty: 'High', level: 'National', fee: '₹200 (Gen/OBC/EWS)', syllabus: 'https://upsc.gov.in/sites/default/files/Notifi-CDSE-I-2025-Engl-11122024F.pdf', official: 'https://upsconline.nic.in/' },
+                    { name: 'UPSC CAPF', body: 'Union Public Service Commission', career: 'Group-A Officer in CAPFs', date: 'First Sunday of August', mode: 'Written (Offline)', difficulty: 'High', level: 'National', fee: '₹200 (Gen/OBC/EWS)', syllabus: 'https://testbook.com/upsc-capf-ac/syllabus-exam-pattern', official: 'https://upsconline.nic.in/' },
+                    { name: 'SSC CGL', body: 'Staff Selection Commission', career: 'Group B & C Central Govt Jobs', date: 'June–July', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://ssc.nic.in/Portal/Syllabus', official: 'https://ssc.nic.in' },
+                    { name: 'SSC CHSL', body: 'Staff Selection Commission', career: 'Clerical / Data Entry Roles', date: 'July–August', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ssc-chsl-syllabus.html', official: 'https://ssc.nic.in' },
+                    { name: 'SSC GD', body: 'Staff Selection Commission', career: 'Constable (CAPFs, Assam Rifles)', date: 'January–February', mode: 'Computer Based + Physical', difficulty: 'Medium', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ssc-gd-syllabus.html', official: 'https://ssc.nic.in' },
+                    { name: 'UPPSC PCS', body: 'Uttar Pradesh Public Service Commission', career: 'SDM, DSP, BDO, Treasury', date: 'Second week of October', mode: 'Written (Offline)', difficulty: 'Very High', level: 'State', fee: '₹125 (Gen/EWS/OBC)', syllabus: 'https://www.sanskritiias.com/uppsc/syllabus/uppsc-exam-pattern-and-syllabus', official: 'https://uppsc.up.nic.in' },
+                    { name: 'MPSC State Services', body: 'Maharashtra Public Service Commission', career: 'Deputy Collector, DSP, Tehsildar', date: 'First week of June', mode: 'Written (Offline)', difficulty: 'Very High', level: 'State', fee: '₹394 (Gen)', syllabus: 'https://mpsc.gov.in/examination_syllabus/18', official: 'https://mpsc.gov.in' },
+                    { name: 'TNPSC Group I', body: 'Tamil Nadu Public Service Commission', career: 'Deputy Collector, DSP', date: 'Second week of June', mode: 'Written (Offline)', difficulty: 'High', level: 'State', fee: '₹150 (Gen)', syllabus: 'https://tnpsc.gov.in/static_pdf/Syllabus/Gr_I_09_03_2020.pdf', official: 'https://tnpsc.gov.in' },
+                    { name: 'RPSC RAS', body: 'Rajasthan Public Service Commission', career: 'SDM, DSP, State Services', date: 'October', mode: 'Written (Offline)', difficulty: 'Very High', level: 'State', fee: '₹350 (Gen/OBC/EWS)', syllabus: 'https://rpsc.rajasthan.gov.in/Static/Syllabus/238A2E0E-B0D0-49C2-8E5E-D299A915037F.pdf', official: 'https://rpsc.rajasthan.gov.in' },
+                    { name: 'BPSC CCE', body: 'Bihar Public Service Commission', career: 'SDM, DSP, Revenue Officer', date: 'Last week of September', mode: 'Written (Offline)', difficulty: 'High', level: 'State', fee: '₹600 (Gen)', syllabus: 'https://bpsc.bihar.gov.in/syllabus/', official: 'https://bpsc.bih.nic.in' }
+                ],
+                UG: [
+                    { name: 'SSC GD', body: 'Staff Selection Commission', career: 'Constable (CAPFs)', date: 'January–February', mode: 'Computer Based + Physical', difficulty: 'Medium', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ssc-gd-syllabus.html', official: 'https://ssc.nic.in' }
+                ]
+            },
+            Banking: {
+                PG: [
+                    { name: 'SBI PO', body: 'State Bank of India', career: 'Probationary Officer (Banking Leadership)', date: 'First–Second week of July (Prelims)', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹750 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/sbi-po-syllabus.html', official: 'https://sbi.co.in/web/careers' },
+                    { name: 'SBI Clerk', body: 'State Bank of India', career: 'Clerical Banking Services', date: 'Second week of August', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹750 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/sbi-clerk-syllabus.html', official: 'https://sbi.co.in/web/careers' },
+                    { name: 'IBPS PO', body: 'Institute of Banking Personnel Selection', career: 'Probationary Officer', date: 'Second week of October (Prelims)', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ibps-po-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
+                    { name: 'IBPS Clerk', body: 'Institute of Banking Personnel Selection', career: 'Clerical Banking Role', date: 'First week of December (Prelims)', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ibps-clerk-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
+                    { name: 'IBPS SO', body: 'Institute of Banking Personnel Selection', career: 'Specialist Officer (IT/HR/Law)', date: 'Last week of December', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ibps-so-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
+                    { name: 'RRB PO', body: 'IBPS (for RRBs)', career: 'Rural Banking Officer', date: 'First week of August', mode: 'Computer Based', difficulty: 'Medium-High', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ibps-rrb-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
+                    { name: 'RRB Clerk', body: 'IBPS (for RRBs)', career: 'Rural Banking Clerical Role', date: 'Second week of August', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ibps-rrb-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
+                    { name: 'RBI Assistant', body: 'Reserve Bank of India', career: 'Central Banking (Clerical)', date: 'Third week of November', mode: 'Computer Based', difficulty: 'Medium-High', level: 'National', fee: '₹450 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/rbi-assistant-syllabus-exam-pattern.html', official: 'https://www.rbi.org.in' },
+                    { name: 'RBI Grade B', body: 'Reserve Bank of India', career: 'Central Banking, Policy, Regulation', date: 'First week of June (Phase I)', mode: 'Computer Based', difficulty: 'Very High', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.adda247.com/rbi-grade-b/syllabus', official: 'https://www.rbi.org.in' },
+                    { name: 'SEBI Grade A', body: 'Securities and Exchange Board of India', career: 'Capital Markets Regulation', date: 'Last week of August', mode: 'Computer Based', difficulty: 'Very High', level: 'National', fee: '₹1,000 (Gen/OBC/EWS)', syllabus: 'https://www.sebi.gov.in/sebi_data/careerfiles/oct-2018/1539581586356.pdf', official: 'https://www.sebi.gov.in' },
+                    { name: 'NABARD Grade A', body: 'National Bank for Agriculture and Rural Development', career: 'Rural Development, Banking', date: 'First week of September', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹800 (Gen/OBC/EWS)', syllabus: 'https://www.adda247.com/jobs/nabard-grade-a-syllabus/', official: 'https://www.nabard.org' },
+                    { name: 'IRDAI Grade A', body: 'Insurance Regulatory and Development Authority', career: 'Insurance Regulation', date: 'September–October', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹750 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/blog/irdai-assistant-manager-syllabus', official: 'https://www.irdai.gov.in' },
+                    { name: 'LIC AAO', body: 'Life Insurance Corporation of India', career: 'Officer-level PSU Job (Insurance)', date: 'March', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹700 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/lic-aao-syllabus.html', official: 'https://licindia.in' }
+                ]
+            },
+            Teaching: {
+                PG: [
+                    { name: 'CTET', body: 'Central Board of Secondary Education', career: 'Teaching Eligibility (Central Schools)', date: 'First week of July / Second week of December', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹1,000 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ctet-syllabus.html', official: 'https://ctet.nic.in' },
+                    { name: 'B.Ed Entrance', body: 'State Universities / Education Boards', career: 'Teaching (School Education)', date: 'May–June', mode: 'Written / Computer Based', difficulty: 'Medium', level: 'State', fee: '₹500–₹1,500', syllabus: 'https://www.adda247.com/teaching-jobs-exam/maharashtra-bed-syllabus/', official: 'State-specific' },
+                    { name: 'State TET', body: 'State Education Boards / PSCs', career: 'Teaching Eligibility (State Schools)', date: 'July–November (varies by state)', mode: 'Written / Computer Based', difficulty: 'Medium', level: 'State', fee: '₹300–₹1,000', syllabus: 'https://www.careerpower.in/maha-tet-syllabus.html', official: 'State-specific' }
+                ]
+            },
+            Design: {
+                UG: [
+                    { name: 'NIFT Entrance', body: 'NIFT', career: 'Fashion Design', date: 'First week of February', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹3,000 (Gen)', syllabus: 'https://www.nift.ac.in/sites/default/files/inline-files/Syllabus%20of%20UG%20%26%20PG%20Prog..pdf', official: 'https://nift.ac.in' },
+                    { name: 'NATA', body: 'COA', career: 'B.Arch', date: 'April to July (multiple attempts)', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹2,000 (Gen)', syllabus: 'https://www.nata.in/nata2025v1-1.pdf', official: 'https://nata.in' },
+                    { name: 'UCEED', body: 'IIT Bombay', career: 'B.Des', date: 'Third Sunday of January', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹3,900 (Gen)', syllabus: 'https://www.uceed.iitb.ac.in/2026/syllabus.html', official: 'https://www.uceed.iitb.ac.in' }
+                ]
+            },
+            Commerce: {
+                UG: [
+                    { name: 'CUET UG', body: 'NTA', career: 'BA / BSc / BCom / BBA', date: 'Third week of May', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹1,000 (Gen)', syllabus: 'https://cuet.nta.nic.in/syllabus/', official: 'https://cuet.nta.nic.in' }
+                ],
+                Professional: [
+                    { name: 'CA Foundation', body: 'ICAI', career: 'Chartered Accountant', date: 'January / May / September', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹9,200 (uniform)', syllabus: 'https://www.icai.org/post/foundation-nset', official: 'https://www.icai.org' },
+                    { name: 'CA Intermediate', body: 'ICAI', career: 'Chartered Accountant', date: 'January / May / September', mode: 'Written', difficulty: 'Very High', level: 'National', fee: '₹18,000 (approx)', syllabus: 'https://www.icai.org/post/intermediate-nset', official: 'https://www.icai.org' },
+                    { name: 'CA Final', body: 'ICAI', career: 'Chartered Accountant', date: 'January / May / September', mode: 'Written', difficulty: 'Extreme', level: 'National', fee: '₹22,000 (approx)', syllabus: 'https://www.icai.org/post/final-nset', official: 'https://www.icai.org' },
+                    { name: 'CSEET', body: 'ICSI', career: 'Company Secretary', date: 'Jan / May / July / November', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹1,000 (uniform)', syllabus: 'https://www.icsi.edu/media/webmodules/DRAFT_CSEET_SYLLABUS_06092019.pdf', official: 'https://www.icsi.edu' },
+                    { name: 'CS Executive', body: 'ICSI', career: 'Company Secretary', date: 'First week of June / December', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹18,500 (approx)', syllabus: 'https://www.icsi.edu/media/webmodules/125-130.pdf', official: 'https://www.icsi.edu' },
+                    { name: 'CS Professional', body: 'ICSI', career: 'Company Secretary', date: 'First week of June / December', mode: 'Written', difficulty: 'Very High', level: 'National', fee: '₹22,000 (approx)', syllabus: 'https://www.icsi.edu/media/webmodules/SYLLABUS_2018N.pdf', official: 'https://www.icsi.edu' },
+                    { name: 'CMA Foundation', body: 'ICMAI', career: 'Cost & Management Accountant', date: 'Last week of June / December', mode: 'Written', difficulty: 'Medium', level: 'National', fee: '₹6,000 (approx)', syllabus: 'https://icmai.in/studentswebsite/Syl-2022-Fdn.php', official: 'https://www.icmai.in' },
+                    { name: 'CMA Intermediate', body: 'ICMAI', career: 'Cost & Management Accountant', date: 'First week of June / December', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹23,100 (approx)', syllabus: 'https://icmai.in/studentswebsite/Syl-2022-Inter.php', official: 'https://www.icmai.in' },
+                    { name: 'CMA Final', body: 'ICMAI', career: 'Cost & Management Accountant', date: 'First week of June / December', mode: 'Written', difficulty: 'Very High', level: 'National', fee: '₹25,000 (approx)', syllabus: 'https://icmai.in/studentswebsite/Syl-2022-Final.php', official: 'https://www.icmai.in' },
+                    { name: 'ACET (Actuarial)', body: 'Institute of Actuaries of India', career: 'Actuary', date: 'Mid Jan / Apr / Jul / Oct', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹3,000 (approx)', syllabus: 'https://www.actuariesindia.org/syllabus', official: 'https://actuariesindia.org' }
+                ]
+            }
+        };
+        
         function changeLanguage(lang) {
             currentLanguage = lang;
             
-            // Update button active states
             document.querySelectorAll('.language-selector button').forEach(btn => {
                 btn.classList.remove('active');
             });
             document.getElementById('btn-' + lang).classList.add('active');
             
-            // Update all translatable elements
             document.querySelectorAll('[data-' + lang + ']').forEach(element => {
                 const text = element.getAttribute('data-' + lang);
                 if (element.tagName === 'INPUT' && element.placeholder) {
@@ -1077,7 +599,6 @@
                 }
             });
             
-            // Update selection buttons text
             document.querySelectorAll('.selection-btn').forEach(btn => {
                 const text = btn.getAttribute('data-' + lang);
                 if (text) {
@@ -1085,9 +606,12 @@
                 }
             });
             
-            // Update greeting if user has entered name
             if (userName) {
                 updateGreeting();
+            }
+            
+            if (selectedEduLevel || selectedStream) {
+                updateFilterSummary();
             }
         }
         
@@ -1104,17 +628,20 @@
             }
         }
         
-        // Selection button click handlers
+        function updateFilterSummary() {
+            const eduText = document.querySelector(`.selection-btn[data-value="${selectedEduLevel}"]`);
+            const streamText = document.querySelector(`.selection-btn[data-value="${selectedStream}"]`);
+            
+            document.getElementById('filterEduLevel').textContent = eduText ? eduText.textContent : '-';
+            document.getElementById('filterStream').textContent = streamText ? streamText.textContent : '-';
+        }
+        
         document.querySelectorAll('.selection-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                // Remove active from siblings
                 const parent = this.parentElement;
                 parent.querySelectorAll('.selection-btn').forEach(b => b.classList.remove('active'));
-                
-                // Add active to clicked
                 this.classList.add('active');
                 
-                // Store selection
                 const value = this.getAttribute('data-value');
                 if (parent.parentElement.querySelector('#eduRequired')) {
                     selectedEduLevel = value;
@@ -1146,7 +673,6 @@
         function goToStep1() {
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('step1').classList.remove('hidden');
-            // Reset selections
             selectedEduLevel = '';
             selectedStream = '';
             document.querySelectorAll('.selection-btn').forEach(btn => btn.classList.remove('active'));
@@ -1154,8 +680,60 @@
             document.getElementById('streamRequired').style.display = 'none';
         }
         
+        function generateExamTable(exams, categoryName) {
+            if (!exams || exams.length === 0) return '';
+            
+            let tableHTML = `
+                <div class="category-section">
+                    <h3 class="category-title">${categoryName}</h3>
+                    <div class="exam-table-container">
+                        <table class="exam-table">
+                            <thead>
+                                <tr>
+                                    <th data-en="Exam Name" data-hi="परीक्षा का नाम" data-mr="परीक्षेचे नाव">Exam Name</th>
+                                    <th data-en="Conducting Body" data-hi="संचालन निकाय" data-mr="संचालन संस्था">Conducting Body</th>
+                                    <th data-en="Career Path" data-hi="करियर पथ" data-mr="करिअर मार्ग">Career Path</th>
+                                    <th data-en="Exam Date" data-hi="परीक्षा तिथि" data-mr="परीक्षा दिनांक">Exam Date</th>
+                                    <th data-en="Exam Mode" data-hi="परीक्षा मोड" data-mr="परीक्षा पद्धत">Exam Mode</th>
+                                    <th data-en="Details" data-hi="विवरण" data-mr="तपशील">Details</th>
+                                    <th data-en="Links" data-hi="लिंक" data-mr="लिंक्स">Links</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+            `;
+            
+            exams.forEach(exam => {
+                tableHTML += `
+                    <tr>
+                        <td class="exam-name">${exam.name}</td>
+                        <td>${exam.body}</td>
+                        <td>${exam.career}</td>
+                        <td>${exam.date}</td>
+                        <td>${exam.mode}</td>
+                        <td>
+                            <span class="info-badge badge-difficulty">${exam.difficulty}</span><br>
+                            <span class="info-badge badge-level">${exam.level}</span><br>
+                            <span class="info-badge badge-fee">${exam.fee}</span>
+                        </td>
+                        <td class="action-links">
+                            <a href="${exam.syllabus}" target="_blank">📖 Syllabus</a>
+                            <a href="${exam.official}" target="_blank">🔗 Official</a>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            return tableHTML;
+        }
+        
         function showExams() {
-            // Validate selections
             let valid = true;
             
             if (selectedEduLevel === '') {
@@ -1178,14 +756,57 @@
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('step3').classList.remove('hidden');
             
-            // Update greeting with user's name
             updateGreeting();
+            updateFilterSummary();
+            
+            // Filter exams based on selection
+            const filteredExams = examDatabase[selectedStream];
+            let resultsHTML = '';
+            
+            if (filteredExams) {
+                const levelExams = filteredExams[selectedEduLevel];
+                if (levelExams && levelExams.length > 0) {
+                    const categoryNames = {
+                        Management: '📊 Management and Business School Exams',
+                        Engineering: '⚙️ Engineering Exams',
+                        Medical: '🏥 Medical Exams',
+                        Law: '⚖️ Law Exams',
+                        Government: '🏛️ Government Services Exams',
+                        Banking: '🏦 Banking & Finance Exams',
+                        Teaching: '👨‍🏫 Teaching Exams',
+                        Design: '🎨 Design & Arts Exams',
+                        Commerce: '💼 Commerce & Accounting Exams'
+                    };
+                    
+                    resultsHTML = generateExamTable(levelExams, categoryNames[selectedStream] || selectedStream);
+                } else {
+                    resultsHTML = `
+                        <div class="no-results">
+                            <h3 data-en="No Exams Found" data-hi="कोई परीक्षा नहीं मिली" data-mr="कोणत्याही परीक्षा आढळल्या नाही">No Exams Found</h3>
+                            <p data-en="No exams match your selected criteria. Please try different filters." data-hi="आपके चयनित मानदंड से कोई परीक्षा मेल नहीं खाती। कृपया अलग फ़िल्टर आज़माएं।" data-mr="तुमच्या निवडलेल्या निकषांशी कोणत्याही परीक्षा जुळत नाहीत. कृपया वेगळे फिल्टर वापरा.">No exams match your selected criteria. Please try different filters.</p>
+                        </div>
+                    `;
+                }
+            } else {
+                resultsHTML = `
+                    <div class="no-results">
+                        <h3 data-en="No Exams Found" data-hi="कोई परीक्षा नहीं मिली" data-mr="कोणत्याही परीक्षा आढळल्या नाही">No Exams Found</h3>
+                        <p data-en="No exams match your selected criteria. Please try different filters." data-hi="आपके चयनित मानदंड से कोई परीक्षा मेल नहीं खाती। कृपया अलग फ़िल्टर आज़माएं।" data-mr="तुमच्या निवडलेल्या निकषांशी कोणत्याही परीक्षा जुळत नाहीत. कृपया वेगळे फिल्टर वापरा.">No exams match your selected criteria. Please try different filters.</p>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('examResults').innerHTML = resultsHTML;
+            
+            // Apply translations to newly added content
+            if (currentLanguage !== 'en') {
+                changeLanguage(currentLanguage);
+            }
             
             console.log('Education Level:', selectedEduLevel);
             console.log('Stream:', selectedStream);
         }
         
-        // Enter key support for name input
         document.addEventListener('DOMContentLoaded', function() {
             const nameInput = document.getElementById('userName');
             if (nameInput) {
