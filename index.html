@@ -19,7 +19,7 @@
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -167,6 +167,16 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
         }
         
         .back-btn {
@@ -317,9 +327,9 @@
             color: #0c5460;
         }
         
-        .badge-fee {
-            background: #d4edda;
-            color: #155724;
+        .badge-mode {
+            background: #e2e3e5;
+            color: #383d41;
         }
         
         .selection-required {
@@ -356,6 +366,15 @@
             font-size: 24px;
             margin-bottom: 10px;
             color: #333;
+        }
+        
+        .fee-note {
+            background: #fff3cd;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #856404;
+            border-left: 3px solid #ffc107;
         }
         
         @media (max-width: 768px) {
@@ -441,6 +460,7 @@
                 </div>
                 
                 <button class="btn" onclick="showExams()" data-en="Find & Compare Exams" data-hi="परीक्षाएं खोजें और तुलना करें" data-mr="परीक्षा शोधा आणि तुलना करा">Find & Compare Exams</button>
+                <button class="btn btn-secondary" onclick="showAllExams()" data-en="Show All Exams" data-hi="सभी परीक्षाएं दिखाएं" data-mr="सर्व परीक्षा दाखवा">Show All Exams</button>
             </div>
             
             <!-- Step 3: Exam Results (TABLE FORMAT with Filtering) -->
@@ -450,7 +470,7 @@
                 <h2 class="step-title" data-en="Recommended Exams by Category" data-hi="श्रेणी द्वारा अनुशंसित परीक्षाएं" data-mr="वर्गानुसार शिफारस केलेल्या परीक्षा">Recommended Exams by Category</h2>
                 
                 <!-- Filter Summary -->
-                <div class="filter-summary">
+                <div class="filter-summary" id="filterSummary">
                     <p><strong data-en="Education Level:" data-hi="शिक्षा स्तर:" data-mr="शिक्षण स्तर:">Education Level:</strong> <span id="filterEduLevel"></span></p>
                     <p><strong data-en="Stream / Field:" data-hi="स्ट्रीम / क्षेत्र:" data-mr="स्ट्रीम / क्षेत्र:">Stream / Field:</strong> <span id="filterStream"></span></p>
                 </div>
@@ -465,119 +485,127 @@
         let userName = '';
         let selectedEduLevel = '';
         let selectedStream = '';
+        let showAllMode = false;
         
         // Complete Exam Database from Education Dataset
         const examDatabase = {
             Management: {
-                PG: [
-                    { name: 'CAT', body: 'Indian Institutes of Management', career: 'MBA/PGDM Admissions', date: 'Last Sunday of November', mode: 'Computer Based', difficulty: 'Moderate to High', level: 'National', fee: '₹2,400 (Gen)', syllabus: 'https://www.imsindia.com/blog/cat/cat-syllabus/', official: 'https://iimcat.ac.in/per/g06/pub/32842/ASM/WebPortal/1/index.html' },
-                    { name: 'XAT', body: 'XLRI Jamshedpur', career: 'MBA/PGDM Admissions', date: 'First Sunday of January', mode: 'Computer Based', difficulty: 'Moderate to High', level: 'National', fee: '₹2,100+', syllabus: 'https://xatonline.in/blog/xat-2026-syllabus-exam-pattern', official: 'https://xatonline.in/' },
-                    { name: 'GMAT', body: 'GMAC', career: 'Global MBA / Management', date: 'Year Round (Anytime)', mode: 'Computer Based', difficulty: 'Moderate', level: 'International', fee: 'USD 275 (~₹23,000)', syllabus: 'https://gmatpoint.com/gmat-syllabus/', official: 'https://www.mba.com/exams/gmat-exam/about' },
-                    { name: 'MAT', body: 'AIMA', career: 'MBA/PGDM Admissions', date: 'Feb, May, Sep, Dec (4 times/year)', mode: 'Computer/Paper Based', difficulty: 'Moderate', level: 'National', fee: 'Varies by session', syllabus: 'https://www.shiksha.com/mba/mat-exam-syllabus', official: 'https://mat.aima.in/' },
-                    { name: 'CMAT', body: 'National Testing Agency', career: 'MBA/PGDM Admissions', date: 'January', mode: 'Computer Based', difficulty: 'Moderate', level: 'National', fee: '₹1,600 (Gen)', syllabus: 'https://cracku.in/cmat-syllabus-pdf/', official: 'https://cmat.nta.nic.in/' },
-                    { name: 'SNAP', body: 'Symbiosis International University', career: 'MBA/PGDM Admissions', date: 'December (3 attempts)', mode: 'Computer Based', difficulty: 'Moderate', level: 'University', fee: '₹2,250 per attempt', syllabus: 'https://www.snaptest.org/snap-exam-syllabus.html', official: 'https://www.snaptest.org/' },
-                    { name: 'NMAT', body: 'GMAC', career: 'MBA/PGDM / Global', date: 'November - December (3 attempts)', mode: 'Computer Based', difficulty: 'Moderate', level: 'National/International', fee: '₹3,000 per attempt', syllabus: 'https://cracku.in/nmat-syllabus/', official: 'https://www.mba.com/exams/nmat' },
-                    { name: 'MICAT 2026', body: 'MICA Ahmedabad', career: 'MBA/PGDM (Marketing, Communications)', date: 'Phase 1: December, Phase 2: February', mode: 'Computer Based', difficulty: 'Moderate to High', level: 'National', fee: '₹2,500 per attempt', syllabus: 'https://www.mbauniverse.com/micat/syllabus', official: 'https://www.mica.ac.in/mica-admissions-2026/' },
-                    { name: 'GRE General Test', body: 'ETS', career: 'MS / MBA / PhD / Graduate Programs', date: 'Year Round (Every 21 days)', mode: 'Computer Based / At Home', difficulty: 'Moderate to High', level: 'International', fee: '₹22,000', syllabus: 'https://www.ets.org/gre/test-takers/general-test/prepare/content.html', official: 'https://www.in.ets.org/gre.html' }
-                ],
                 UG: [
-                    { name: 'MAH BBA/BMS CET', body: 'State CET Cell MH', career: 'BBA / BMS / BCA', date: 'Last week of April', mode: 'Computer Based', difficulty: 'Medium', level: 'State', fee: '₹1,000 (Gen)', syllabus: 'https://cetcell.mahacet.org/wp-content/uploads/2023/12/MAH-B-BCA-BBA-BMS-BBM-CET-2024-25-Syllabus.pdf', official: 'https://cetcell.mahacet.org' },
-                    { name: 'SET', body: 'Symbiosis University', career: 'BBA / BCA / Media', date: 'First and Second week of May', mode: 'Computer Based', difficulty: 'Medium', level: 'University', fee: '₹2,250 (all)', syllabus: 'https://www.set-test.org/structure', official: 'https://www.set-test.org' },
-                    { name: 'NPAT', body: 'NMIMS', career: 'BBA / BCom / Econ', date: 'January to May (multiple slots)', mode: 'Computer Based', difficulty: 'Medium', level: 'University', fee: '₹2,000 (all)', syllabus: 'https://www.imsindia.com/blog/npat/npat-syllabus/', official: 'https://npat.nmims.edu' }
+                    { name: 'MAH BBA/BMS CET', body: 'State CET Cell MH', career: 'BBA / BMS / BCA', date: 'Last week of April', mode: 'Computer Based', difficulty: 'Medium', level: 'State', papers: '1', fee: 'Refer Official Site', syllabus: 'https://cetcell.mahacet.org/wp-content/uploads/2023/12/MAH-B-BCA-BBA-BMS-BBM-CET-2024-25-Syllabus.pdf', official: 'https://cetcell.mahacet.org' },
+                    { name: 'SET', body: 'Symbiosis University', career: 'BBA / BCA / Media', date: 'First and Second week of May', mode: 'Computer Based', difficulty: 'Medium', level: 'University', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.set-test.org/structure', official: 'https://www.set-test.org' },
+                    { name: 'NPAT', body: 'NMIMS', career: 'BBA / BCom / Econ', date: 'January to May (multiple slots)', mode: 'Computer Based', difficulty: 'Medium', level: 'University', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.imsindia.com/blog/npat/npat-syllabus/', official: 'https://npat.nmims.edu' },
+                    { name: 'XET (St Xavier\'s)', body: 'St Xavier\'s College', career: 'BA / BSc / BMS', date: 'Second week of April', mode: 'Computer Based', difficulty: 'Medium', level: 'University', papers: '1', fee: 'Refer Official Site', syllabus: 'https://xaviers.edu', official: 'https://xaviers.edu' }
+                ],
+                PG: [
+                    { name: 'CAT', body: 'Indian Institutes of Management', career: 'MBA/PGDM Admissions', date: 'Last Sunday of November', mode: 'Computer Based', difficulty: 'Moderate to High', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.imsindia.com/blog/cat/cat-syllabus/', official: 'https://iimcat.ac.in' },
+                    { name: 'XAT', body: 'XLRI Jamshedpur', career: 'MBA/PGDM Admissions', date: 'First Sunday of January', mode: 'Computer Based', difficulty: 'Moderate to High', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://xatonline.in/blog/xat-2026-syllabus-exam-pattern', official: 'https://xatonline.in' },
+                    { name: 'GMAT', body: 'GMAC', career: 'Global MBA / Management', date: 'Year Round (Anytime)', mode: 'Computer Based', difficulty: 'Moderate', level: 'International', papers: '1', fee: 'Refer Official Site', syllabus: 'https://gmatpoint.com/gmat-syllabus/', official: 'https://www.mba.com/exams/gmat-exam/about' },
+                    { name: 'MAT', body: 'AIMA', career: 'MBA/PGDM Admissions', date: 'Feb, May, Sep, Dec (4 times/year)', mode: 'Computer/Paper Based', difficulty: 'Moderate', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.shiksha.com/mba/mat-exam-syllabus', official: 'https://mat.aima.in' },
+                    { name: 'CMAT', body: 'National Testing Agency', career: 'MBA/PGDM Admissions', date: 'January', mode: 'Computer Based', difficulty: 'Moderate', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://cracku.in/cmat-syllabus-pdf/', official: 'https://cmat.nta.nic.in' },
+                    { name: 'SNAP', body: 'Symbiosis International University', career: 'MBA/PGDM Admissions', date: 'December (3 attempts)', mode: 'Computer Based', difficulty: 'Moderate', level: 'University', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.snaptest.org/snap-exam-syllabus.html', official: 'https://www.snaptest.org' },
+                    { name: 'NMAT', body: 'GMAC', career: 'MBA/PGDM / Global', date: 'November - December (3 attempts)', mode: 'Computer Based', difficulty: 'Moderate', level: 'National/International', papers: '3 attempt windows', fee: 'Refer Official Site', syllabus: 'https://cracku.in/nmat-syllabus/', official: 'https://www.mba.com/exams/nmat' },
+                    { name: 'MICAT 2026', body: 'MICA Ahmedabad', career: 'MBA/PGDM (Marketing, Communications)', date: 'Phase 1: December, Phase 2: February', mode: 'Computer Based', difficulty: 'Moderate to High', level: 'National', papers: '2 (MICAT I & II)', fee: 'Refer Official Site', syllabus: 'https://www.mbauniverse.com/micat/syllabus', official: 'https://www.mica.ac.in/mica-admissions-2026/' },
+                    { name: 'GRE General Test', body: 'ETS', career: 'MS / MBA / PhD / Graduate Programs', date: 'Year Round (Every 21 days)', mode: 'Computer Based / At Home', difficulty: 'Moderate to High', level: 'International', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.ets.org/gre/test-takers/general-test/prepare/content.html', official: 'https://www.in.ets.org/gre.html' }
                 ]
             },
             Engineering: {
                 UG: [
-                    { name: 'JEE Main', body: 'NTA', career: 'B.Tech / B.E / B.Arch', date: 'Session 1: Last week of January | Session 2: First week of April', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹1,000 (Gen)', syllabus: 'https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2024/10/2024102841.pdf', official: 'https://jeemain.nta.nic.in' },
-                    { name: 'MHT-CET', body: 'State CET Cell MH', career: 'B.Tech / B.Pharm', date: 'Second–Fourth week of April', mode: 'Computer Based', difficulty: 'Medium–High', level: 'State', fee: '₹1,300 (Gen)', syllabus: 'https://cetcell.mahacet.org/wp-content/uploads/2023/12/Syllabus.pdf', official: 'https://cetcell.mahacet.org' },
-                    { name: 'UCEED', body: 'IIT Bombay', career: 'B.Des', date: 'Third Sunday of January', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹3,900 (Gen)', syllabus: 'https://www.uceed.iitb.ac.in/2026/syllabus.html', official: 'https://www.uceed.iitb.ac.in' }
+                    { name: 'JEE Main', body: 'NTA', career: 'B.Tech / B.E / B.Arch', date: 'Session 1: Last week of January | Session 2: First week of April', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '2', fee: 'Refer Official Site', syllabus: 'https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2024/10/2024102841.pdf', official: 'https://jeemain.nta.nic.in' },
+                    { name: 'MHT-CET', body: 'State CET Cell MH', career: 'B.Tech / B.Pharm', date: 'Second–Fourth week of April', mode: 'Computer Based', difficulty: 'Medium–High', level: 'State', papers: '2', fee: 'Refer Official Site', syllabus: 'https://cetcell.mahacet.org/wp-content/uploads/2023/12/Syllabus.pdf', official: 'https://cetcell.mahacet.org' },
+                    { name: 'UCEED', body: 'IIT Bombay', career: 'B.Des', date: 'Third Sunday of January', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.uceed.iitb.ac.in/2026/syllabus.html', official: 'https://www.uceed.iitb.ac.in' }
                 ],
                 PG: [
-                    { name: 'UPSC ESE/IES', body: 'Union Public Service Commission', career: 'Group-A Engineering Services', date: 'Second week of February', mode: 'Written (Offline)', difficulty: 'Very High', level: 'National', fee: '₹200 (Gen/OBC/EWS)', syllabus: 'https://upsc.gov.in/examinations/Engineering%20Services%20%28Preliminary%29%20Examination%2C%202025', official: 'https://upsconline.nic.in/' }
+                    { name: 'UPSC ESE/IES', body: 'Union Public Service Commission', career: 'Group-A Engineering Services', date: 'Second week of February', mode: 'Written (Offline)', difficulty: 'Very High', level: 'National', papers: '3 (Prelims, Mains, Interview)', fee: 'Refer Official Site', syllabus: 'https://upsc.gov.in/examinations/Engineering%20Services%20%28Preliminary%29%20Examination%2C%202025', official: 'https://upsconline.nic.in' }
                 ]
             },
             Medical: {
                 UG: [
-                    { name: 'NEET UG', body: 'NTA', career: 'MBBS / BDS / AYUSH', date: 'First Sunday of May', mode: 'Written', difficulty: 'Very High', level: 'National', fee: '₹1,700 (Gen)', syllabus: 'https://www.nta.ac.in/Download/Notice/Notice_20241230193629.pdf', official: 'https://neet.nta.nic.in' }
+                    { name: 'NEET UG', body: 'NTA', career: 'MBBS / BDS / AYUSH', date: 'First Sunday of May', mode: 'Written', difficulty: 'Very High', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.nta.ac.in/Download/Notice/Notice_20241230193629.pdf', official: 'https://neet.nta.nic.in' }
                 ],
                 PG: [
-                    { name: 'NEET PG', body: 'NBEMS', career: 'MD / MS / PG Medical', date: 'January', mode: 'Computer Based', difficulty: 'Very High', level: 'National', fee: '₹3,500 (Gen)', syllabus: 'https://nbe.edu.in', official: 'https://nbe.edu.in' }
+                    { name: 'NEET PG', body: 'NBEMS', career: 'MD / MS / PG Medical', date: 'January', mode: 'Computer Based', difficulty: 'Very High', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://nbe.edu.in', official: 'https://nbe.edu.in' }
                 ]
             },
             Law: {
                 UG: [
-                    { name: 'CLAT', body: 'NLU Consortium', career: 'BA LLB / BBA LLB', date: 'First Sunday of December (previous year)', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹4,000 (Gen)', syllabus: 'https://consortiumofnlus.ac.in/clat-2026/ug-syllabus.html', official: 'https://consortiumofnlus.ac.in' },
-                    { name: 'AILET', body: 'NLU Delhi', career: 'Law', date: 'Second Sunday of December (previous year)', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹3,050 (Gen)', syllabus: 'https://nationallawuniversitydelhi.in/ballb/exam-details.html', official: 'https://nationallawuniversitydelhi.in' }
+                    { name: 'CLAT', body: 'NLU Consortium', career: 'BA LLB / BBA LLB', date: 'First Sunday of December (previous year)', mode: 'Written', difficulty: 'High', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://consortiumofnlus.ac.in/clat-2026/ug-syllabus.html', official: 'https://consortiumofnlus.ac.in' },
+                    { name: 'AILET', body: 'NLU Delhi', career: 'Law', date: 'Second Sunday of December (previous year)', mode: 'Written', difficulty: 'High', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://nationallawuniversitydelhi.in/ballb/exam-details.html', official: 'https://nationallawuniversitydelhi.in' }
                 ],
                 PG: [
-                    { name: 'CLAT PG', body: 'NLU Consortium', career: 'LLM', date: 'December', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹4,000 (Gen)', syllabus: 'https://consortiumofnlus.ac.in', official: 'https://consortiumofnlus.ac.in' }
+                    { name: 'CLAT PG', body: 'NLU Consortium', career: 'LLM', date: 'December', mode: 'Written', difficulty: 'High', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://consortiumofnlus.ac.in', official: 'https://consortiumofnlus.ac.in' }
                 ]
             },
             Government: {
-                PG: [
-                    { name: 'UPSC Civil Services (CSE)', body: 'Union Public Service Commission', career: 'IAS, IPS, IFS, IRS, Allied Services', date: 'Prelims: Last Sunday of May | Mains: Third week of September', mode: 'Written (Offline)', difficulty: 'Very High', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://upsc.gov.in/examinations/revised-syllabus-scheme', official: 'https://upsconline.nic.in/' },
-                    { name: 'UPSC IFoS', body: 'Union Public Service Commission', career: 'Indian Forest Service Officer', date: 'Same day as CSE Prelims', mode: 'Written (Offline)', difficulty: 'Very High', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://vajiramandravi.com/upsc-exam/ifos-syllabus/', official: 'https://upsconline.nic.in/' },
-                    { name: 'UPSC CDS', body: 'Union Public Service Commission', career: 'Armed Forces Officer (IMA, OTA, INA, AFA)', date: 'CDS-I: Second Sunday of April | CDS-II: First Sunday of September', mode: 'Written (Offline)', difficulty: 'High', level: 'National', fee: '₹200 (Gen/OBC/EWS)', syllabus: 'https://upsc.gov.in/sites/default/files/Notifi-CDSE-I-2025-Engl-11122024F.pdf', official: 'https://upsconline.nic.in/' },
-                    { name: 'UPSC CAPF', body: 'Union Public Service Commission', career: 'Group-A Officer in CAPFs', date: 'First Sunday of August', mode: 'Written (Offline)', difficulty: 'High', level: 'National', fee: '₹200 (Gen/OBC/EWS)', syllabus: 'https://testbook.com/upsc-capf-ac/syllabus-exam-pattern', official: 'https://upsconline.nic.in/' },
-                    { name: 'SSC CGL', body: 'Staff Selection Commission', career: 'Group B & C Central Govt Jobs', date: 'June–July', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://ssc.nic.in/Portal/Syllabus', official: 'https://ssc.nic.in' },
-                    { name: 'SSC CHSL', body: 'Staff Selection Commission', career: 'Clerical / Data Entry Roles', date: 'July–August', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ssc-chsl-syllabus.html', official: 'https://ssc.nic.in' },
-                    { name: 'SSC GD', body: 'Staff Selection Commission', career: 'Constable (CAPFs, Assam Rifles)', date: 'January–February', mode: 'Computer Based + Physical', difficulty: 'Medium', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ssc-gd-syllabus.html', official: 'https://ssc.nic.in' },
-                    { name: 'UPPSC PCS', body: 'Uttar Pradesh Public Service Commission', career: 'SDM, DSP, BDO, Treasury', date: 'Second week of October', mode: 'Written (Offline)', difficulty: 'Very High', level: 'State', fee: '₹125 (Gen/EWS/OBC)', syllabus: 'https://www.sanskritiias.com/uppsc/syllabus/uppsc-exam-pattern-and-syllabus', official: 'https://uppsc.up.nic.in' },
-                    { name: 'MPSC State Services', body: 'Maharashtra Public Service Commission', career: 'Deputy Collector, DSP, Tehsildar', date: 'First week of June', mode: 'Written (Offline)', difficulty: 'Very High', level: 'State', fee: '₹394 (Gen)', syllabus: 'https://mpsc.gov.in/examination_syllabus/18', official: 'https://mpsc.gov.in' },
-                    { name: 'TNPSC Group I', body: 'Tamil Nadu Public Service Commission', career: 'Deputy Collector, DSP', date: 'Second week of June', mode: 'Written (Offline)', difficulty: 'High', level: 'State', fee: '₹150 (Gen)', syllabus: 'https://tnpsc.gov.in/static_pdf/Syllabus/Gr_I_09_03_2020.pdf', official: 'https://tnpsc.gov.in' },
-                    { name: 'RPSC RAS', body: 'Rajasthan Public Service Commission', career: 'SDM, DSP, State Services', date: 'October', mode: 'Written (Offline)', difficulty: 'Very High', level: 'State', fee: '₹350 (Gen/OBC/EWS)', syllabus: 'https://rpsc.rajasthan.gov.in/Static/Syllabus/238A2E0E-B0D0-49C2-8E5E-D299A915037F.pdf', official: 'https://rpsc.rajasthan.gov.in' },
-                    { name: 'BPSC CCE', body: 'Bihar Public Service Commission', career: 'SDM, DSP, Revenue Officer', date: 'Last week of September', mode: 'Written (Offline)', difficulty: 'High', level: 'State', fee: '₹600 (Gen)', syllabus: 'https://bpsc.bihar.gov.in/syllabus/', official: 'https://bpsc.bih.nic.in' }
-                ],
                 UG: [
-                    { name: 'SSC GD', body: 'Staff Selection Commission', career: 'Constable (CAPFs)', date: 'January–February', mode: 'Computer Based + Physical', difficulty: 'Medium', level: 'National', fee: '₹100 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ssc-gd-syllabus.html', official: 'https://ssc.nic.in' }
+                    { name: 'SSC GD', body: 'Staff Selection Commission', career: 'Constable (CAPFs)', date: 'January–February', mode: 'Computer Based + Physical', difficulty: 'Medium', level: 'National', papers: '3 (CBT, PET/PST, Medical)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/ssc-gd-syllabus.html', official: 'https://ssc.nic.in' }
+                ],
+                PG: [
+                    { name: 'UPSC Civil Services (CSE)', body: 'Union Public Service Commission', career: 'IAS, IPS, IFS, IRS, Allied Services', date: 'Prelims: Last Sunday of May | Mains: Third week of September', mode: 'Written (Offline)', difficulty: 'Very High', level: 'National', papers: '3 (Prelims, Mains, Interview)', fee: 'Refer Official Site', syllabus: 'https://upsc.gov.in/examinations/revised-syllabus-scheme', official: 'https://upsconline.nic.in' },
+                    { name: 'UPSC IFoS', body: 'Union Public Service Commission', career: 'Indian Forest Service Officer', date: 'Same day as CSE Prelims', mode: 'Written (Offline)', difficulty: 'Very High', level: 'National', papers: '3 (Prelims, Mains, Interview)', fee: 'Refer Official Site', syllabus: 'https://vajiramandravi.com/upsc-exam/ifos-syllabus/', official: 'https://upsconline.nic.in' },
+                    { name: 'UPSC ESE/IES', body: 'Union Public Service Commission', career: 'Group-A Engineering Services', date: 'Second week of February', mode: 'Written (Offline)', difficulty: 'Very High', level: 'National', papers: '3 (Prelims, Mains, Interview)', fee: 'Refer Official Site', syllabus: 'https://upsc.gov.in/examinations/Engineering%20Services%20%28Preliminary%29%20Examination%2C%202025', official: 'https://upsconline.nic.in' },
+                    { name: 'UPSC CDS', body: 'Union Public Service Commission', career: 'Armed Forces Officer (IMA, OTA, INA, AFA)', date: 'CDS-I: Second Sunday of April | CDS-II: First Sunday of September', mode: 'Written (Offline)', difficulty: 'High', level: 'National', papers: '2 (Written + SSB)', fee: 'Refer Official Site', syllabus: 'https://upsc.gov.in/sites/default/files/Notifi-CDSE-I-2025-Engl-11122024F.pdf', official: 'https://upsconline.nic.in' },
+                    { name: 'UPSC CAPF', body: 'Union Public Service Commission', career: 'Group-A Officer in CAPFs', date: 'First Sunday of August', mode: 'Written (Offline)', difficulty: 'High', level: 'National', papers: '3 (Written, Physical/Medical, Interview)', fee: 'Refer Official Site', syllabus: 'https://testbook.com/upsc-capf-ac/syllabus-exam-pattern', official: 'https://upsconline.nic.in' },
+                    { name: 'UPSC EPFO', body: 'Union Public Service Commission', career: 'Enforcement Officer / Accounts Officer', date: 'First Sunday of September', mode: 'Computer Based', difficulty: 'Medium-High', level: 'National', papers: '2 (Written + Interview)', fee: 'Refer Official Site', syllabus: 'https://testbook.com/upsc-epfo/syllabus', official: 'https://upsconline.nic.in' },
+                    { name: 'UPSC ESIC SSO', body: 'Union Public Service Commission', career: 'Social Security Officer', date: 'Usually June–July', mode: 'Computer Based', difficulty: 'Medium-High', level: 'National', papers: '2 (Written + Interview)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/esic-sso-syllabus.html', official: 'https://upsconline.nic.in' },
+                    { name: 'UPSC IES/ISS', body: 'Union Public Service Commission', career: 'Economic / Statistical Services', date: 'Third week of June', mode: 'Written (Offline)', difficulty: 'Very High', level: 'National', papers: '3 (Written, Viva, Medical)', fee: 'Refer Official Site', syllabus: 'https://upsc.gov.in/examinations/Indian%20Economic%20Service%20-%20Indian%20Statistical%20Service%20Examination%2C%202025', official: 'https://upsconline.nic.in' },
+                    { name: 'SSC CGL', body: 'Staff Selection Commission', career: 'Group B & C Central Govt Jobs', date: 'June–July', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '2 (Tier I, Tier II)', fee: 'Refer Official Site', syllabus: 'https://ssc.nic.in/Portal/Syllabus', official: 'https://ssc.nic.in' },
+                    { name: 'SSC CHSL', body: 'Staff Selection Commission', career: 'Clerical / Data Entry Roles', date: 'July–August', mode: 'Computer Based', difficulty: 'Medium', level: 'National', papers: '2', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/ssc-chsl-syllabus.html', official: 'https://ssc.nic.in' },
+                    { name: 'SSC CPO', body: 'Staff Selection Commission', career: 'Sub-Inspector (Delhi Police, CAPFs)', date: 'October–November', mode: 'Computer Based + Physical', difficulty: 'Medium-High', level: 'National', papers: '3 (Paper I, PET/PST, Paper II)', fee: 'Refer Official Site', syllabus: 'https://testbook.com/ssc-cpo/syllabus', official: 'https://ssc.nic.in' },
+                    { name: 'SSC Stenographer', body: 'Staff Selection Commission', career: 'Stenographer in Central Govt', date: 'October', mode: 'Computer Based + Skill', difficulty: 'Medium', level: 'National', papers: '2 (CBT + Skill Test)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/ssc-stenographer-syllabus.html', official: 'https://ssc.nic.in' },
+                    { name: 'UPPSC PCS', body: 'Uttar Pradesh Public Service Commission', career: 'SDM, DSP, BDO, Treasury', date: 'Second week of October', mode: 'Written (Offline)', difficulty: 'Very High', level: 'State', papers: '3 (Prelims, Mains, Interview)', fee: 'Refer Official Site', syllabus: 'https://www.sanskritiias.com/uppsc/syllabus/uppsc-exam-pattern-and-syllabus', official: 'https://uppsc.up.nic.in' },
+                    { name: 'MPSC State Services', body: 'Maharashtra Public Service Commission', career: 'Deputy Collector, DSP, Tehsildar', date: 'First week of June', mode: 'Written (Offline)', difficulty: 'Very High', level: 'State', papers: '3', fee: 'Refer Official Site', syllabus: 'https://mpsc.gov.in/examination_syllabus/18', official: 'https://mpsc.gov.in' },
+                    { name: 'TNPSC Group I', body: 'Tamil Nadu Public Service Commission', career: 'Deputy Collector, DSP', date: 'Second week of June', mode: 'Written (Offline)', difficulty: 'High', level: 'State', papers: '3', fee: 'Refer Official Site', syllabus: 'https://tnpsc.gov.in/static_pdf/Syllabus/Gr_I_09_03_2020.pdf', official: 'https://tnpsc.gov.in' },
+                    { name: 'RPSC RAS', body: 'Rajasthan Public Service Commission', career: 'SDM, DSP, State Services', date: 'October', mode: 'Written (Offline)', difficulty: 'Very High', level: 'State', papers: '3', fee: 'Refer Official Site', syllabus: 'https://rpsc.rajasthan.gov.in/Static/Syllabus/238A2E0E-B0D0-49C2-8E5E-D299A915037F.pdf', official: 'https://rpsc.rajasthan.gov.in' },
+                    { name: 'BPSC CCE', body: 'Bihar Public Service Commission', career: 'SDM, DSP, Revenue Officer', date: 'Last week of September', mode: 'Written (Offline)', difficulty: 'High', level: 'State', papers: '3', fee: 'Refer Official Site', syllabus: 'https://bpsc.bihar.gov.in/syllabus/', official: 'https://bpsc.bih.nic.in' }
                 ]
             },
             Banking: {
                 PG: [
-                    { name: 'SBI PO', body: 'State Bank of India', career: 'Probationary Officer (Banking Leadership)', date: 'First–Second week of July (Prelims)', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹750 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/sbi-po-syllabus.html', official: 'https://sbi.co.in/web/careers' },
-                    { name: 'SBI Clerk', body: 'State Bank of India', career: 'Clerical Banking Services', date: 'Second week of August', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹750 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/sbi-clerk-syllabus.html', official: 'https://sbi.co.in/web/careers' },
-                    { name: 'IBPS PO', body: 'Institute of Banking Personnel Selection', career: 'Probationary Officer', date: 'Second week of October (Prelims)', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ibps-po-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
-                    { name: 'IBPS Clerk', body: 'Institute of Banking Personnel Selection', career: 'Clerical Banking Role', date: 'First week of December (Prelims)', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ibps-clerk-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
-                    { name: 'IBPS SO', body: 'Institute of Banking Personnel Selection', career: 'Specialist Officer (IT/HR/Law)', date: 'Last week of December', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ibps-so-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
-                    { name: 'RRB PO', body: 'IBPS (for RRBs)', career: 'Rural Banking Officer', date: 'First week of August', mode: 'Computer Based', difficulty: 'Medium-High', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ibps-rrb-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
-                    { name: 'RRB Clerk', body: 'IBPS (for RRBs)', career: 'Rural Banking Clerical Role', date: 'Second week of August', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ibps-rrb-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
-                    { name: 'RBI Assistant', body: 'Reserve Bank of India', career: 'Central Banking (Clerical)', date: 'Third week of November', mode: 'Computer Based', difficulty: 'Medium-High', level: 'National', fee: '₹450 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/rbi-assistant-syllabus-exam-pattern.html', official: 'https://www.rbi.org.in' },
-                    { name: 'RBI Grade B', body: 'Reserve Bank of India', career: 'Central Banking, Policy, Regulation', date: 'First week of June (Phase I)', mode: 'Computer Based', difficulty: 'Very High', level: 'National', fee: '₹850 (Gen/OBC/EWS)', syllabus: 'https://www.adda247.com/rbi-grade-b/syllabus', official: 'https://www.rbi.org.in' },
-                    { name: 'SEBI Grade A', body: 'Securities and Exchange Board of India', career: 'Capital Markets Regulation', date: 'Last week of August', mode: 'Computer Based', difficulty: 'Very High', level: 'National', fee: '₹1,000 (Gen/OBC/EWS)', syllabus: 'https://www.sebi.gov.in/sebi_data/careerfiles/oct-2018/1539581586356.pdf', official: 'https://www.sebi.gov.in' },
-                    { name: 'NABARD Grade A', body: 'National Bank for Agriculture and Rural Development', career: 'Rural Development, Banking', date: 'First week of September', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹800 (Gen/OBC/EWS)', syllabus: 'https://www.adda247.com/jobs/nabard-grade-a-syllabus/', official: 'https://www.nabard.org' },
-                    { name: 'IRDAI Grade A', body: 'Insurance Regulatory and Development Authority', career: 'Insurance Regulation', date: 'September–October', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹750 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/blog/irdai-assistant-manager-syllabus', official: 'https://www.irdai.gov.in' },
-                    { name: 'LIC AAO', body: 'Life Insurance Corporation of India', career: 'Officer-level PSU Job (Insurance)', date: 'March', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹700 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/lic-aao-syllabus.html', official: 'https://licindia.in' }
+                    { name: 'SBI PO', body: 'State Bank of India', career: 'Probationary Officer (Banking Leadership)', date: 'First–Second week of July (Prelims)', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '3 (Prelims, Mains, Interview)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/sbi-po-syllabus.html', official: 'https://sbi.co.in/web/careers' },
+                    { name: 'SBI Clerk', body: 'State Bank of India', career: 'Clerical Banking Services', date: 'Second week of August', mode: 'Computer Based', difficulty: 'Medium', level: 'National', papers: '2 (Prelims, Mains)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/sbi-clerk-syllabus.html', official: 'https://sbi.co.in/web/careers' },
+                    { name: 'IBPS PO', body: 'Institute of Banking Personnel Selection', career: 'Probationary Officer', date: 'Second week of October (Prelims)', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '3 (Prelims, Mains, Interview)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/ibps-po-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
+                    { name: 'IBPS Clerk', body: 'Institute of Banking Personnel Selection', career: 'Clerical Banking Role', date: 'First week of December (Prelims)', mode: 'Computer Based', difficulty: 'Medium', level: 'National', papers: '2 (Prelims, Mains)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/ibps-clerk-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
+                    { name: 'IBPS SO', body: 'Institute of Banking Personnel Selection', career: 'Specialist Officer (IT/HR/Law)', date: 'Last week of December', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '3 (Prelims, Mains, Interview)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/ibps-so-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
+                    { name: 'RRB PO', body: 'IBPS (for RRBs)', career: 'Rural Banking Officer', date: 'First week of August', mode: 'Computer Based', difficulty: 'Medium-High', level: 'National', papers: '3 (Prelims, Mains, Interview)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/ibps-rrb-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
+                    { name: 'RRB Clerk', body: 'IBPS (for RRBs)', career: 'Rural Banking Clerical Role', date: 'Second week of August', mode: 'Computer Based', difficulty: 'Medium', level: 'National', papers: '2 (Prelims, Mains)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/ibps-rrb-syllabus-exam-pattern.html', official: 'https://www.ibps.in' },
+                    { name: 'RBI Assistant', body: 'Reserve Bank of India', career: 'Central Banking (Clerical)', date: 'Third week of November', mode: 'Computer Based', difficulty: 'Medium-High', level: 'National', papers: '3 (Prelims, Mains, LPT)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/rbi-assistant-syllabus-exam-pattern.html', official: 'https://www.rbi.org.in' },
+                    { name: 'RBI Grade B', body: 'Reserve Bank of India', career: 'Central Banking, Policy, Regulation', date: 'First week of June (Phase I)', mode: 'Computer Based', difficulty: 'Very High', level: 'National', papers: '3 (Phase I, II, Interview)', fee: 'Refer Official Site', syllabus: 'https://www.adda247.com/rbi-grade-b/syllabus', official: 'https://www.rbi.org.in' },
+                    { name: 'SEBI Grade A', body: 'Securities and Exchange Board of India', career: 'Capital Markets Regulation', date: 'Last week of August', mode: 'Computer Based', difficulty: 'Very High', level: 'National', papers: '3 (Phase I, II, Interview)', fee: 'Refer Official Site', syllabus: 'https://www.sebi.gov.in/sebi_data/careerfiles/oct-2018/1539581586356.pdf', official: 'https://www.sebi.gov.in' },
+                    { name: 'NABARD Grade A', body: 'National Bank for Agriculture and Rural Development', career: 'Rural Development, Banking', date: 'First week of September', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '3 (Prelims, Mains, Interview)', fee: 'Refer Official Site', syllabus: 'https://www.adda247.com/jobs/nabard-grade-a-syllabus/', official: 'https://www.nabard.org' },
+                    { name: 'IRDAI Grade A', body: 'Insurance Regulatory and Development Authority', career: 'Insurance Regulation', date: 'September–October', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '3 (Phase I, II, Interview)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/blog/irdai-assistant-manager-syllabus', official: 'https://www.irdai.gov.in' },
+                    { name: 'PFRDA Grade A', body: 'Pension Fund Regulatory and Development Authority', career: 'Pension Regulation, Policy', date: 'October–November', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '3 (Phase I, II, Interview)', fee: 'Refer Official Site', syllabus: 'https://www.bankersadda.com/pfrda-grade-a-syllabus/', official: 'https://www.pfrda.org.in' },
+                    { name: 'LIC AAO', body: 'Life Insurance Corporation of India', career: 'Officer-level PSU Job (Insurance)', date: 'March', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '3 (Prelims, Mains, Interview)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/lic-aao-syllabus.html', official: 'https://licindia.in' }
                 ]
             },
             Teaching: {
                 PG: [
-                    { name: 'CTET', body: 'Central Board of Secondary Education', career: 'Teaching Eligibility (Central Schools)', date: 'First week of July / Second week of December', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹1,000 (Gen/OBC/EWS)', syllabus: 'https://www.careerpower.in/ctet-syllabus.html', official: 'https://ctet.nic.in' },
-                    { name: 'B.Ed Entrance', body: 'State Universities / Education Boards', career: 'Teaching (School Education)', date: 'May–June', mode: 'Written / Computer Based', difficulty: 'Medium', level: 'State', fee: '₹500–₹1,500', syllabus: 'https://www.adda247.com/teaching-jobs-exam/maharashtra-bed-syllabus/', official: 'State-specific' },
-                    { name: 'State TET', body: 'State Education Boards / PSCs', career: 'Teaching Eligibility (State Schools)', date: 'July–November (varies by state)', mode: 'Written / Computer Based', difficulty: 'Medium', level: 'State', fee: '₹300–₹1,000', syllabus: 'https://www.careerpower.in/maha-tet-syllabus.html', official: 'State-specific' }
+                    { name: 'CTET', body: 'Central Board of Secondary Education', career: 'Teaching Eligibility (Central Schools)', date: 'First week of July / Second week of December', mode: 'Computer Based', difficulty: 'Medium', level: 'National', papers: '2 (Paper I & II)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/ctet-syllabus.html', official: 'https://ctet.nic.in' },
+                    { name: 'B.Ed Entrance', body: 'State Universities / Education Boards', career: 'Teaching (School Education)', date: 'May–June', mode: 'Written / Computer Based', difficulty: 'Medium', level: 'State', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.adda247.com/teaching-jobs-exam/maharashtra-bed-syllabus/', official: 'State-specific' },
+                    { name: 'State TET', body: 'State Education Boards / PSCs', career: 'Teaching Eligibility (State Schools)', date: 'July–November (varies by state)', mode: 'Written / Computer Based', difficulty: 'Medium', level: 'State', papers: '2 (Paper I & II)', fee: 'Refer Official Site', syllabus: 'https://www.careerpower.in/maha-tet-syllabus.html', official: 'State-specific' }
                 ]
             },
             Design: {
                 UG: [
-                    { name: 'NIFT Entrance', body: 'NIFT', career: 'Fashion Design', date: 'First week of February', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹3,000 (Gen)', syllabus: 'https://www.nift.ac.in/sites/default/files/inline-files/Syllabus%20of%20UG%20%26%20PG%20Prog..pdf', official: 'https://nift.ac.in' },
-                    { name: 'NATA', body: 'COA', career: 'B.Arch', date: 'April to July (multiple attempts)', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹2,000 (Gen)', syllabus: 'https://www.nata.in/nata2025v1-1.pdf', official: 'https://nata.in' },
-                    { name: 'UCEED', body: 'IIT Bombay', career: 'B.Des', date: 'Third Sunday of January', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹3,900 (Gen)', syllabus: 'https://www.uceed.iitb.ac.in/2026/syllabus.html', official: 'https://www.uceed.iitb.ac.in' }
+                    { name: 'NIFT Entrance', body: 'NIFT', career: 'Fashion Design', date: 'First week of February', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '2', fee: 'Refer Official Site', syllabus: 'https://www.nift.ac.in/sites/default/files/inline-files/Syllabus%20of%20UG%20%26%20PG%20Prog..pdf', official: 'https://nift.ac.in' },
+                    { name: 'NATA', body: 'COA', career: 'B.Arch', date: 'April to July (multiple attempts)', mode: 'Computer Based', difficulty: 'Medium', level: 'National', papers: '2', fee: 'Refer Official Site', syllabus: 'https://www.nata.in/nata2025v1-1.pdf', official: 'https://nata.in' },
+                    { name: 'UCEED', body: 'IIT Bombay', career: 'B.Des', date: 'Third Sunday of January', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.uceed.iitb.ac.in/2026/syllabus.html', official: 'https://www.uceed.iitb.ac.in' }
                 ]
             },
             Commerce: {
                 UG: [
-                    { name: 'CUET UG', body: 'NTA', career: 'BA / BSc / BCom / BBA', date: 'Third week of May', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹1,000 (Gen)', syllabus: 'https://cuet.nta.nic.in/syllabus/', official: 'https://cuet.nta.nic.in' }
+                    { name: 'CUET UG', body: 'NTA', career: 'BA / BSc / BCom / BBA', date: 'Third week of May', mode: 'Computer Based', difficulty: 'Medium', level: 'National', papers: 'Multiple', fee: 'Refer Official Site', syllabus: 'https://cuet.nta.nic.in/syllabus/', official: 'https://cuet.nta.nic.in' }
                 ],
                 Professional: [
-                    { name: 'CA Foundation', body: 'ICAI', career: 'Chartered Accountant', date: 'January / May / September', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹9,200 (uniform)', syllabus: 'https://www.icai.org/post/foundation-nset', official: 'https://www.icai.org' },
-                    { name: 'CA Intermediate', body: 'ICAI', career: 'Chartered Accountant', date: 'January / May / September', mode: 'Written', difficulty: 'Very High', level: 'National', fee: '₹18,000 (approx)', syllabus: 'https://www.icai.org/post/intermediate-nset', official: 'https://www.icai.org' },
-                    { name: 'CA Final', body: 'ICAI', career: 'Chartered Accountant', date: 'January / May / September', mode: 'Written', difficulty: 'Extreme', level: 'National', fee: '₹22,000 (approx)', syllabus: 'https://www.icai.org/post/final-nset', official: 'https://www.icai.org' },
-                    { name: 'CSEET', body: 'ICSI', career: 'Company Secretary', date: 'Jan / May / July / November', mode: 'Computer Based', difficulty: 'Medium', level: 'National', fee: '₹1,000 (uniform)', syllabus: 'https://www.icsi.edu/media/webmodules/DRAFT_CSEET_SYLLABUS_06092019.pdf', official: 'https://www.icsi.edu' },
-                    { name: 'CS Executive', body: 'ICSI', career: 'Company Secretary', date: 'First week of June / December', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹18,500 (approx)', syllabus: 'https://www.icsi.edu/media/webmodules/125-130.pdf', official: 'https://www.icsi.edu' },
-                    { name: 'CS Professional', body: 'ICSI', career: 'Company Secretary', date: 'First week of June / December', mode: 'Written', difficulty: 'Very High', level: 'National', fee: '₹22,000 (approx)', syllabus: 'https://www.icsi.edu/media/webmodules/SYLLABUS_2018N.pdf', official: 'https://www.icsi.edu' },
-                    { name: 'CMA Foundation', body: 'ICMAI', career: 'Cost & Management Accountant', date: 'Last week of June / December', mode: 'Written', difficulty: 'Medium', level: 'National', fee: '₹6,000 (approx)', syllabus: 'https://icmai.in/studentswebsite/Syl-2022-Fdn.php', official: 'https://www.icmai.in' },
-                    { name: 'CMA Intermediate', body: 'ICMAI', career: 'Cost & Management Accountant', date: 'First week of June / December', mode: 'Written', difficulty: 'High', level: 'National', fee: '₹23,100 (approx)', syllabus: 'https://icmai.in/studentswebsite/Syl-2022-Inter.php', official: 'https://www.icmai.in' },
-                    { name: 'CMA Final', body: 'ICMAI', career: 'Cost & Management Accountant', date: 'First week of June / December', mode: 'Written', difficulty: 'Very High', level: 'National', fee: '₹25,000 (approx)', syllabus: 'https://icmai.in/studentswebsite/Syl-2022-Final.php', official: 'https://www.icmai.in' },
-                    { name: 'ACET (Actuarial)', body: 'Institute of Actuaries of India', career: 'Actuary', date: 'Mid Jan / Apr / Jul / Oct', mode: 'Computer Based', difficulty: 'High', level: 'National', fee: '₹3,000 (approx)', syllabus: 'https://www.actuariesindia.org/syllabus', official: 'https://actuariesindia.org' }
+                    { name: 'CA Foundation', body: 'ICAI', career: 'Chartered Accountant', date: 'January / May / September', mode: 'Written', difficulty: 'High', level: 'National', papers: '4', fee: 'Refer Official Site', syllabus: 'https://www.icai.org/post/foundation-nset', official: 'https://www.icai.org' },
+                    { name: 'CA Intermediate', body: 'ICAI', career: 'Chartered Accountant', date: 'January / May / September', mode: 'Written', difficulty: 'Very High', level: 'National', papers: '6', fee: 'Refer Official Site', syllabus: 'https://www.icai.org/post/intermediate-nset', official: 'https://www.icai.org' },
+                    { name: 'CA Final', body: 'ICAI', career: 'Chartered Accountant', date: 'January / May / September', mode: 'Written', difficulty: 'Extreme', level: 'National', papers: '6', fee: 'Refer Official Site', syllabus: 'https://www.icai.org/post/final-nset', official: 'https://www.icai.org' },
+                    { name: 'CSEET', body: 'ICSI', career: 'Company Secretary', date: 'Jan / May / July / November', mode: 'Computer Based', difficulty: 'Medium', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.icsi.edu/media/webmodules/DRAFT_CSEET_SYLLABUS_06092019.pdf', official: 'https://www.icsi.edu' },
+                    { name: 'CS Executive', body: 'ICSI', career: 'Company Secretary', date: 'First week of June / December', mode: 'Written', difficulty: 'High', level: 'National', papers: '8', fee: 'Refer Official Site', syllabus: 'https://www.icsi.edu/media/webmodules/125-130.pdf', official: 'https://www.icsi.edu' },
+                    { name: 'CS Professional', body: 'ICSI', career: 'Company Secretary', date: 'First week of June / December', mode: 'Written', difficulty: 'Very High', level: 'National', papers: '9', fee: 'Refer Official Site', syllabus: 'https://www.icsi.edu/media/webmodules/SYLLABUS_2018N.pdf', official: 'https://www.icsi.edu' },
+                    { name: 'CMA Foundation', body: 'ICMAI', career: 'Cost & Management Accountant', date: 'Last week of June / December', mode: 'Written', difficulty: 'Medium', level: 'National', papers: '4', fee: 'Refer Official Site', syllabus: 'https://icmai.in/studentswebsite/Syl-2022-Fdn.php', official: 'https://www.icmai.in' },
+                    { name: 'CMA Intermediate', body: 'ICMAI', career: 'Cost & Management Accountant', date: 'First week of June / December', mode: 'Written', difficulty: 'High', level: 'National', papers: '8', fee: 'Refer Official Site', syllabus: 'https://icmai.in/studentswebsite/Syl-2022-Inter.php', official: 'https://www.icmai.in' },
+                    { name: 'CMA Final', body: 'ICMAI', career: 'Cost & Management Accountant', date: 'First week of June / December', mode: 'Written', difficulty: 'Very High', level: 'National', papers: '8', fee: 'Refer Official Site', syllabus: 'https://icmai.in/studentswebsite/Syl-2022-Final.php', official: 'https://www.icmai.in' },
+                    { name: 'ACET (Actuarial)', body: 'Institute of Actuaries of India', career: 'Actuary', date: 'Mid Jan / Apr / Jul / Oct', mode: 'Computer Based', difficulty: 'High', level: 'National', papers: '1', fee: 'Refer Official Site', syllabus: 'https://www.actuariesindia.org/syllabus', official: 'https://actuariesindia.org' }
                 ]
             }
         };
@@ -610,7 +638,7 @@
                 updateGreeting();
             }
             
-            if (selectedEduLevel || selectedStream) {
+            if (selectedEduLevel || selectedStream || showAllMode) {
                 updateFilterSummary();
             }
         }
@@ -629,15 +657,23 @@
         }
         
         function updateFilterSummary() {
-            const eduText = document.querySelector(`.selection-btn[data-value="${selectedEduLevel}"]`);
-            const streamText = document.querySelector(`.selection-btn[data-value="${selectedStream}"]`);
-            
-            document.getElementById('filterEduLevel').textContent = eduText ? eduText.textContent : '-';
-            document.getElementById('filterStream').textContent = streamText ? streamText.textContent : '-';
+            const summaryDiv = document.getElementById('filterSummary');
+            if (showAllMode) {
+                summaryDiv.innerHTML = '<p><strong data-en="Mode:" data-hi="मोड:" data-mr="मोड:">Mode:</strong> <span data-en="Showing All Exams" data-hi="सभी परीक्षाएं दिखा रहे हैं" data-mr="सर्व परीक्षा दाखवत आहोत">Showing All Exams</span></p>';
+            } else {
+                const eduText = document.querySelector(`.selection-btn[data-value="${selectedEduLevel}"]`);
+                const streamText = document.querySelector(`.selection-btn[data-value="${selectedStream}"]`);
+                
+                summaryDiv.innerHTML = `
+                    <p><strong data-en="Education Level:" data-hi="शिक्षा स्तर:" data-mr="शिक्षण स्तर:">Education Level:</strong> <span id="filterEduLevel">${eduText ? eduText.textContent : '-'}</span></p>
+                    <p><strong data-en="Stream / Field:" data-hi="स्ट्रीम / क्षेत्र:" data-mr="स्ट्रीम / क्षेत्र:">Stream / Field:</strong> <span id="filterStream">${streamText ? streamText.textContent : '-'}</span></p>
+                `;
+            }
         }
         
         document.querySelectorAll('.selection-btn').forEach(btn => {
             btn.addEventListener('click', function() {
+                showAllMode = false;
                 const parent = this.parentElement;
                 parent.querySelectorAll('.selection-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
@@ -675,6 +711,7 @@
             document.getElementById('step1').classList.remove('hidden');
             selectedEduLevel = '';
             selectedStream = '';
+            showAllMode = false;
             document.querySelectorAll('.selection-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('eduRequired').style.display = 'none';
             document.getElementById('streamRequired').style.display = 'none';
@@ -694,8 +731,9 @@
                                     <th data-en="Conducting Body" data-hi="संचालन निकाय" data-mr="संचालन संस्था">Conducting Body</th>
                                     <th data-en="Career Path" data-hi="करियर पथ" data-mr="करिअर मार्ग">Career Path</th>
                                     <th data-en="Exam Date" data-hi="परीक्षा तिथि" data-mr="परीक्षा दिनांक">Exam Date</th>
-                                    <th data-en="Exam Mode" data-hi="परीक्षा मोड" data-mr="परीक्षा पद्धत">Exam Mode</th>
+                                    <th data-en="Mode" data-hi="मोड" data-mr="पद्धत">Mode</th>
                                     <th data-en="Details" data-hi="विवरण" data-mr="तपशील">Details</th>
+                                    <th data-en="Fee" data-hi="शुल्क" data-mr="फीस">Fee</th>
                                     <th data-en="Links" data-hi="लिंक" data-mr="लिंक्स">Links</th>
                                 </tr>
                             </thead>
@@ -713,8 +751,9 @@
                         <td>
                             <span class="info-badge badge-difficulty">${exam.difficulty}</span><br>
                             <span class="info-badge badge-level">${exam.level}</span><br>
-                            <span class="info-badge badge-fee">${exam.fee}</span>
+                            <span class="info-badge badge-mode">${exam.papers} Papers</span>
                         </td>
+                        <td><div class="fee-note">📋 ${exam.fee}</div></td>
                         <td class="action-links">
                             <a href="${exam.syllabus}" target="_blank">📖 Syllabus</a>
                             <a href="${exam.official}" target="_blank">🔗 Official</a>
@@ -734,6 +773,7 @@
         }
         
         function showExams() {
+            showAllMode = false;
             let valid = true;
             
             if (selectedEduLevel === '') {
@@ -759,7 +799,6 @@
             updateGreeting();
             updateFilterSummary();
             
-            // Filter exams based on selection
             const filteredExams = examDatabase[selectedStream];
             let resultsHTML = '';
             
@@ -798,13 +837,53 @@
             
             document.getElementById('examResults').innerHTML = resultsHTML;
             
-            // Apply translations to newly added content
             if (currentLanguage !== 'en') {
                 changeLanguage(currentLanguage);
             }
+        }
+        
+        function showAllExams() {
+            showAllMode = true;
+            selectedEduLevel = '';
+            selectedStream = '';
+            document.querySelectorAll('.selection-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('eduRequired').style.display = 'none';
+            document.getElementById('streamRequired').style.display = 'none';
             
-            console.log('Education Level:', selectedEduLevel);
-            console.log('Stream:', selectedStream);
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.remove('hidden');
+            
+            updateGreeting();
+            updateFilterSummary();
+            
+            let resultsHTML = '';
+            const categoryNames = {
+                Management: '📊 Management and Business School Exams',
+                Engineering: '⚙️ Engineering Exams',
+                Medical: '🏥 Medical Exams',
+                Law: '⚖️ Law Exams',
+                Government: '🏛️ Government Services Exams',
+                Banking: '🏦 Banking & Finance Exams',
+                Teaching: '👨‍🏫 Teaching Exams',
+                Design: '🎨 Design & Arts Exams',
+                Commerce: '💼 Commerce & Accounting Exams'
+            };
+            
+            for (const stream in examDatabase) {
+                const streamData = examDatabase[stream];
+                for (const level in streamData) {
+                    const exams = streamData[level];
+                    if (exams && exams.length > 0) {
+                        resultsHTML += generateExamTable(exams, categoryNames[stream] || stream);
+                    }
+                }
+            }
+            
+            document.getElementById('examResults').innerHTML = resultsHTML;
+            
+            if (currentLanguage !== 'en') {
+                changeLanguage(currentLanguage);
+            }
         }
         
         document.addEventListener('DOMContentLoaded', function() {
