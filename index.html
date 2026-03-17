@@ -56,8 +56,9 @@
             transition: all 0.3s;
         }
         
-        .language-selector button:hover {
-            background: rgba(255,255,255,0.3);
+        .language-selector button:hover,
+        .language-selector button.active {
+            background: rgba(255,255,255,0.4);
         }
         
         .content {
@@ -196,7 +197,7 @@
         }
         
         .hidden {
-            display: none;
+            display: none !important;
         }
         
         .back-btn {
@@ -262,6 +263,18 @@
             background: #d4edda;
             color: #155724;
         }
+        
+        .welcome-text {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .user-greeting {
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -269,74 +282,75 @@
         <div class="header">
             <div class="logo">Exam Sahayak</div>
             <div class="language-selector">
-                <button>EN</button>
-                <button>हिंदी</button>
-                <button>मराठी</button>
+                <button onclick="changeLanguage('en')" id="btn-en" class="active">EN</button>
+                <button onclick="changeLanguage('hi')" id="btn-hi">हिंदी</button>
+                <button onclick="changeLanguage('mr')" id="btn-mr">मराठी</button>
             </div>
         </div>
         
         <div class="content">
             <!-- Step 1: Name Input -->
             <div id="step1" class="step-section">
-                <h2 class="step-title">Welcome! Please enter your name</h2>
-                <p style="color: #666; margin-bottom: 20px;">We'll use this only for personalization (not stored).</p>
+                <h2 class="step-title" data-en="Welcome! Please enter your name" data-hi="स्वागत है! कृपया अपना नाम दर्ज करें" data-mr="स्वागत आहे! कृपया तुमचे नाव प्रविष्ट करा">Welcome! Please enter your name</h2>
+                <p class="welcome-text" data-en="We'll use this only for personalization (not stored)." data-hi="हम इसका उपयोग केवल व्यक्तिगतकरण के लिए करेंगे (संग्रहीत नहीं)।" data-mr="आम्ही हे फक्त वैयक्तिककरणासाठी वापरू (साठवले जाणार नाही).">We'll use this only for personalization (not stored).</p>
                 <div class="input-group">
                     <input type="text" id="userName" placeholder="Your Name" />
                 </div>
-                <button class="btn" onclick="goToStep2()">Continue</button>
+                <button class="btn" onclick="goToStep2()" data-en="Continue" data-hi="जारी रखें" data-mr="पुढे जा">Continue</button>
             </div>
             
             <!-- Step 2: Select Details -->
             <div id="step2" class="step-section hidden">
-                <button class="back-btn" onclick="goToStep1()">← Back to Name</button>
-                <h2 class="step-title">Select Your Details</h2>
+                <button class="back-btn" onclick="goToStep1()">← <span data-en="Back to Name" data-hi="नाम पर वापस जाएं" data-mr="नावामध्ये परत">Back to Name</span></button>
+                <h2 class="step-title" data-en="Select Your Details" data-hi="अपना विवरण चुनें" data-mr="तुमची माहिती निवडा">Select Your Details</h2>
                 <div class="filter-section">
                     <div class="input-group">
-                        <label>Education Level</label>
+                        <label data-en="Education Level" data-hi="शिक्षा स्तर" data-mr="शिक्षण स्तर">Education Level</label>
                         <select id="educationLevel">
-                            <option value="">Select Education Level</option>
-                            <option value="UG">Undergraduate (12th Pass)</option>
-                            <option value="PG">Post Graduate (Bachelor's Degree)</option>
-                            <option value="Professional">Professional Courses</option>
+                            <option value="" data-en="Select Education Level" data-hi="शिक्षा स्तर चुनें" data-mr="शिक्षण स्तर निवडा">Select Education Level</option>
+                            <option value="UG" data-en="Undergraduate (12th Pass)" data-hi="स्नातक (12वीं उत्तीर्ण)" data-mr="पदवीपूर्व (12 वी उत्तीर्ण)">Undergraduate (12th Pass)</option>
+                            <option value="PG" data-en="Post Graduate (Bachelor's Degree)" data-hi="स्नातकोत्तर (स्नातक डिग्री)" data-mr="पदव्युत्तर (बॅचलर डिग्री)">Post Graduate (Bachelor's Degree)</option>
+                            <option value="Professional" data-en="Professional Courses" data-hi="पेशेवर पाठ्यक्रम" data-mr="व्यावसायिक अभ्यासक्रम">Professional Courses</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label>Stream / Field</label>
+                        <label data-en="Stream / Field" data-hi="स्ट्रीम / क्षेत्र" data-mr="स्ट्रीम / क्षेत्र">Stream / Field</label>
                         <select id="streamField">
-                            <option value="">Select Stream / Field</option>
-                            <option value="Management">Management & Business</option>
-                            <option value="Engineering">Engineering</option>
-                            <option value="Medical">Medical</option>
-                            <option value="Law">Law</option>
-                            <option value="Government">Government Services</option>
-                            <option value="Banking">Banking & Finance</option>
-                            <option value="Teaching">Teaching</option>
-                            <option value="Design">Design & Arts</option>
-                            <option value="Commerce">Commerce & Accounting</option>
+                            <option value="" data-en="Select Stream / Field" data-hi="स्ट्रीम / क्षेत्र चुनें" data-mr="स्ट्रीम / क्षेत्र निवडा">Select Stream / Field</option>
+                            <option value="Management" data-en="Management & Business" data-hi="प्रबंधन और व्यवसाय" data-mr="व्यवस्थापन आणि व्यवसाय">Management & Business</option>
+                            <option value="Engineering" data-en="Engineering" data-hi="इंजीनियरिंग" data-mr="इंजिनिअरिंग">Engineering</option>
+                            <option value="Medical" data-en="Medical" data-hi="चिकित्सा" data-mr="वैद्यकीय">Medical</option>
+                            <option value="Law" data-en="Law" data-hi="कानून" data-mr="कायदा">Law</option>
+                            <option value="Government" data-en="Government Services" data-hi="सरकारी सेवाएं" data-mr="सरकारी सेवा">Government Services</option>
+                            <option value="Banking" data-en="Banking & Finance" data-hi="बैंकिंग और वित्त" data-mr="बँकिंग आणि वित्त">Banking & Finance</option>
+                            <option value="Teaching" data-en="Teaching" data-hi="शिक्षण" data-mr="शिक्षण">Teaching</option>
+                            <option value="Design" data-en="Design & Arts" data-hi="डिजाइन और कला" data-mr="डिझाइन आणि कला">Design & Arts</option>
+                            <option value="Commerce" data-en="Commerce & Accounting" data-hi="वाणिज्य और लेखांकन" data-mr="वाणिज्य आणि लेखांकन">Commerce & Accounting</option>
                         </select>
                     </div>
                 </div>
-                <button class="btn" onclick="showExams()">Find & Compare Exams</button>
+                <button class="btn" onclick="showExams()" data-en="Find & Compare Exams" data-hi="परीक्षाएं खोजें और तुलना करें" data-mr="परीक्षा शोधा आणि तुलना करा">Find & Compare Exams</button>
             </div>
             
             <!-- Step 3: Exam Results -->
             <div id="step3" class="step-section hidden">
-                <button class="back-btn" onclick="goToStep2()">← Back to Filters</button>
-                <h2 class="step-title">Recommended Exams by Category</h2>
+                <button class="back-btn" onclick="goToStep2()">← <span data-en="Back to Filters" data-hi="फ़िल्टर पर वापस जाएं" data-mr="फिल्टरमध्ये परत">Back to Filters</span></button>
+                <div class="user-greeting" id="userGreeting"></div>
+                <h2 class="step-title" data-en="Recommended Exams by Category" data-hi="श्रेणी द्वारा अनुशंसित परीक्षाएं" data-mr="वर्गानुसार शिफारस केलेल्या परीक्षा">Recommended Exams by Category</h2>
                 
                 <!-- Management & Business School Exams -->
                 <div class="category-section">
-                    <h3 class="category-title">📊 Management and Business School Exams</h3>
+                    <h3 class="category-title" data-en="📊 Management and Business School Exams" data-hi="📊 प्रबंधन और बिजनेस स्कूल परीक्षाएं" data-mr="📊 व्यवस्थापन आणि बिझनेस स्कूल परीक्षा">📊 Management and Business School Exams</h3>
                     <div class="exam-cards">
                         <div class="exam-card">
                             <h3>CAT</h3>
-                            <p><strong>Conducting Body:</strong> Indian Institutes of Management</p>
-                            <p><strong>Career Path:</strong> MBA/PGDM Admissions</p>
-                            <p><strong>Exam Date:</strong> Last Sunday of November</p>
-                            <p><strong>Exam Mode:</strong> Computer Based</p>
-                            <span class="info-badge badge-difficulty">Moderate to High</span>
-                            <span class="info-badge badge-level">National</span>
-                            <span class="info-badge badge-fee">₹2,400 (Gen)</span>
+                            <p><strong data-en="Conducting Body:" data-hi="संचालन निकाय:" data-mr="संचालन संस्था:">Conducting Body:</strong> Indian Institutes of Management</p>
+                            <p><strong data-en="Career Path:" data-hi="करियर पथ:" data-mr="करिअर मार्ग:">Career Path:</strong> MBA/PGDM Admissions</p>
+                            <p><strong data-en="Exam Date:" data-hi="परीक्षा तिथि:" data-mr="परीक्षा दिनांक:">Exam Date:</strong> Last Sunday of November</p>
+                            <p><strong data-en="Exam Mode:" data-hi="परीक्षा मोड:" data-mr="परीक्षा पद्धत:">Exam Mode:</strong> Computer Based</p>
+                            <span class="info-badge badge-difficulty" data-en="Moderate to High" data-hi="मध्यम से उच्च" data-mr="मध्यम ते उच्च">Moderate to High</span>
+                            <span class="info-badge badge-level" data-en="National" data-hi="राष्ट्रीय" data-mr="राष्ट्रीय">National</span>
+                            <span class="info-badge badge-fee" data-en="₹2,400 (Gen)" data-hi="₹2,400 (सामान्य)" data-mr="₹2,400 (जनरल)">₹2,400 (Gen)</span>
                             <br/>
                             <a href="https://www.imsindia.com/blog/cat/cat-syllabus/" class="syllabus-link" target="_blank">📖 View Syllabus →</a>
                             <br/>
@@ -467,7 +481,7 @@
                 
                 <!-- UPSC Exams -->
                 <div class="category-section">
-                    <h3 class="category-title">🏛️ UPSC Exams</h3>
+                    <h3 class="category-title" data-en="🏛️ UPSC Exams" data-hi="🏛️ UPSC परीक्षाएं" data-mr="🏛️ UPSC परीक्षा">🏛️ UPSC Exams</h3>
                     <div class="exam-cards">
                         <div class="exam-card">
                             <h3>UPSC Civil Services (CSE)</h3>
@@ -593,7 +607,7 @@
                 
                 <!-- Banking Exams -->
                 <div class="category-section">
-                    <h3 class="category-title">🏦 Banking Exams</h3>
+                    <h3 class="category-title" data-en="🏦 Banking Exams" data-hi="🏦 बैंकिंग परीक्षाएं" data-mr="🏦 बँकिंग परीक्षा">🏦 Banking Exams</h3>
                     <div class="exam-cards">
                         <div class="exam-card">
                             <h3>SBI PO</h3>
@@ -719,7 +733,7 @@
                 
                 <!-- SSC Exams -->
                 <div class="category-section">
-                    <h3 class="category-title">📋 Staff Selection Commission (SSC) Exams</h3>
+                    <h3 class="category-title" data-en="📋 Staff Selection Commission (SSC) Exams" data-hi="📋 स्टाफ सिलेक्शन कमीशन (SSC) परीक्षाएं" data-mr="📋 स्टाफ सिलेक्शन कमिशन (SSC) परीक्षा">📋 Staff Selection Commission (SSC) Exams</h3>
                     <div class="exam-cards">
                         <div class="exam-card">
                             <h3>SSC CGL</h3>
@@ -800,7 +814,7 @@
                 
                 <!-- Regulatory Body Exams -->
                 <div class="category-section">
-                    <h3 class="category-title">🏛️ Regulatory Body Exams</h3>
+                    <h3 class="category-title" data-en="🏛️ Regulatory Body Exams" data-hi="🏛️ नियामक निकाय परीक्षाएं" data-mr="🏛️ नियामक संस्था परीक्षा">🏛️ Regulatory Body Exams</h3>
                     <div class="exam-cards">
                         <div class="exam-card">
                             <h3>RBI Grade B (DR)</h3>
@@ -881,7 +895,7 @@
                 
                 <!-- State PSC Exams -->
                 <div class="category-section">
-                    <h3 class="category-title">🏛️ State PSC Exams</h3>
+                    <h3 class="category-title" data-en="🏛️ State PSC Exams" data-hi="🏛️ राज्य PSC परीक्षाएं" data-mr="🏛️ राज्य PSC परीक्षा">🏛️ State PSC Exams</h3>
                     <div class="exam-cards">
                         <div class="exam-card">
                             <h3>UPPSC PCS</h3>
@@ -962,7 +976,7 @@
                 
                 <!-- UG Exams -->
                 <div class="category-section">
-                    <h3 class="category-title">🎓 Undergraduate (UG) Exams</h3>
+                    <h3 class="category-title" data-en="🎓 Undergraduate (UG) Exams" data-hi="🎓 स्नातक (UG) परीक्षाएं" data-mr="🎓 पदवीपूर्व (UG) परीक्षा">🎓 Undergraduate (UG) Exams</h3>
                     <div class="exam-cards">
                         <div class="exam-card">
                             <h3>JEE Main</h3>
@@ -1133,7 +1147,7 @@
                 
                 <!-- Professional Courses -->
                 <div class="category-section">
-                    <h3 class="category-title">💼 Professional Courses (CA, CS, CMA, Actuary)</h3>
+                    <h3 class="category-title" data-en="💼 Professional Courses (CA, CS, CMA, Actuary)" data-hi="💼 पेशेवर पाठ्यक्रम (CA, CS, CMA, एक्टुअरी)" data-mr="💼 व्यावसायिक अभ्यासक्रम (CA, CS, CMA, ॲक्च्युअरी)">💼 Professional Courses (CA, CS, CMA, Actuary)</h3>
                     <div class="exam-cards">
                         <div class="exam-card">
                             <h3>CA Foundation</h3>
@@ -1289,7 +1303,7 @@
                 
                 <!-- Teaching & Other Exams -->
                 <div class="category-section">
-                    <h3 class="category-title">👨‍🏫 Teaching & Other Exams</h3>
+                    <h3 class="category-title" data-en="👨‍🏫 Teaching & Other Exams" data-hi="👨‍🏫 शिक्षण और अन्य परीक्षाएं" data-mr="👨‍🏫 शिक्षण आणि इतर परीक्षा">👨‍🏫 Teaching & Other Exams</h3>
                     <div class="exam-cards">
                         <div class="exam-card">
                             <h3>MCA (NIMCET)</h3>
@@ -1373,12 +1387,117 @@
     </div>
     
     <script>
+        let currentLanguage = 'en';
+        let userName = '';
+        
+        // Language translations
+        const translations = {
+            en: {
+                welcome: "Welcome! Please enter your name",
+                personalization: "We'll use this only for personalization (not stored).",
+                continue: "Continue",
+                backToName: "Back to Name",
+                selectDetails: "Select Your Details",
+                educationLevel: "Education Level",
+                selectEduLevel: "Select Education Level",
+                ug: "Undergraduate (12th Pass)",
+                pg: "Post Graduate (Bachelor's Degree)",
+                professional: "Professional Courses",
+                streamField: "Stream / Field",
+                selectStream: "Select Stream / Field",
+                findExams: "Find & Compare Exams",
+                backToFilters: "Back to Filters",
+                recommendedExams: "Recommended Exams by Category"
+            },
+            hi: {
+                welcome: "स्वागत है! कृपया अपना नाम दर्ज करें",
+                personalization: "हम इसका उपयोग केवल व्यक्तिगतकरण के लिए करेंगे (संग्रहीत नहीं)।",
+                continue: "जारी रखें",
+                backToName: "नाम पर वापस जाएं",
+                selectDetails: "अपना विवरण चुनें",
+                educationLevel: "शिक्षा स्तर",
+                selectEduLevel: "शिक्षा स्तर चुनें",
+                ug: "स्नातक (12वीं उत्तीर्ण)",
+                pg: "स्नातकोत्तर (स्नातक डिग्री)",
+                professional: "पेशेवर पाठ्यक्रम",
+                streamField: "स्ट्रीम / क्षेत्र",
+                selectStream: "स्ट्रीम / क्षेत्र चुनें",
+                findExams: "परीक्षाएं खोजें और तुलना करें",
+                backToFilters: "फ़िल्टर पर वापस जाएं",
+                recommendedExams: "श्रेणी द्वारा अनुशंसित परीक्षाएं"
+            },
+            mr: {
+                welcome: "स्वागत आहे! कृपया तुमचे नाव प्रविष्ट करा",
+                personalization: "आम्ही हे फक्त वैयक्तिककरणासाठी वापरू (साठवले जाणार नाही).",
+                continue: "पुढे जा",
+                backToName: "नावामध्ये परत",
+                selectDetails: "तुमची माहिती निवडा",
+                educationLevel: "शिक्षण स्तर",
+                selectEduLevel: "शिक्षण स्तर निवडा",
+                ug: "पदवीपूर्व (12 वी उत्तीर्ण)",
+                pg: "पदव्युत्तर (बॅचलर डिग्री)",
+                professional: "व्यावसायिक अभ्यासक्रम",
+                streamField: "स्ट्रीम / क्षेत्र",
+                selectStream: "स्ट्रीम / क्षेत्र निवडा",
+                findExams: "परीक्षा शोधा आणि तुलना करा",
+                backToFilters: "फिल्टरमध्ये परत",
+                recommendedExams: "वर्गानुसार शिफारस केलेल्या परीक्षा"
+            }
+        };
+        
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update button active states
+            document.querySelectorAll('.language-selector button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById('btn-' + lang).classList.add('active');
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-' + lang + ']').forEach(element => {
+                const text = element.getAttribute('data-' + lang);
+                if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
+                    if (element.tagName === 'INPUT' && element.placeholder) {
+                        element.placeholder = text;
+                    }
+                } else {
+                    element.textContent = text;
+                }
+            });
+            
+            // Update greeting if user has entered name
+            if (userName) {
+                updateGreeting();
+            }
+        }
+        
+        function updateGreeting() {
+            const greeting = document.getElementById('userGreeting');
+            if (greeting) {
+                if (currentLanguage === 'hi') {
+                    greeting.textContent = 'नमस्ते, ' + userName + '!';
+                } else if (currentLanguage === 'mr') {
+                    greeting.textContent = 'नमस्कार, ' + userName + '!';
+                } else {
+                    greeting.textContent = 'Hello, ' + userName + '!';
+                }
+            }
+        }
+        
         function goToStep2() {
-            const name = document.getElementById('userName').value;
-            if (name.trim() === '') {
-                alert('Please enter your name');
+            const nameInput = document.getElementById('userName');
+            const name = nameInput.value.trim();
+            
+            if (name === '') {
+                alert(currentLanguage === 'hi' ? 'कृपया अपना नाम दर्ज करें' : 
+                      currentLanguage === 'mr' ? 'कृपया तुमचे नाव प्रविष्ट करा' : 
+                      'Please enter your name');
+                nameInput.focus();
                 return;
             }
+            
+            userName = name;
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
         }
@@ -1388,27 +1507,38 @@
             document.getElementById('step1').classList.remove('hidden');
         }
         
-        function goToStep2() {
-            document.getElementById('step2').classList.add('hidden');
-            document.getElementById('step1').classList.remove('hidden');
-        }
-        
         function showExams() {
             const eduLevel = document.getElementById('educationLevel').value;
             const stream = document.getElementById('streamField').value;
             
             if (eduLevel === '' || stream === '') {
-                alert('Please select both Education Level and Stream/Field');
+                alert(currentLanguage === 'hi' ? 'कृपया शिक्षा स्तर और स्ट्रीम दोनों चुनें' : 
+                      currentLanguage === 'mr' ? 'कृपया शिक्षण स्तर आणि स्ट्रीम दोन्ही निवडा' : 
+                      'Please select both Education Level and Stream/Field');
                 return;
             }
             
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('step3').classList.remove('hidden');
             
-            // Filter exams based on selection (can be enhanced with JavaScript filtering)
+            // Update greeting with user's name
+            updateGreeting();
+            
             console.log('Education Level:', eduLevel);
             console.log('Stream:', stream);
         }
+        
+        // Enter key support for name input
+        document.addEventListener('DOMContentLoaded', function() {
+            const nameInput = document.getElementById('userName');
+            if (nameInput) {
+                nameInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        goToStep2();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
